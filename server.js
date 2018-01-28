@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const next = require('next')
 const bodyParser = require('body-parser')
@@ -6,25 +7,11 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 
 const dev = process.env.NODE_ENV !== 'production'
+const port = process.env.PORT || 3000
 const app = next({dev})
 const handle = app.getRequestHandler()
+const jwtSecret = process.env.JWT_SECRET || 'jwtSecret'
 
-function unless(paths, middleware) {
-  return function (req, res, next) {
-    let isHave = false
-    paths.forEach((path) => {
-      if (path === req.path || req.path.includes(path)) {
-        isHave = true
-        return
-      }
-    })
-    if (isHave) {
-      return next()
-    } else {
-      return middleware(req, res, next)
-    }
-  }
-}
 
 app.prepare()
   .then(() => {
@@ -40,7 +27,7 @@ app.prepare()
         const token = jwt.sign({
           username: username,
           xsrfToken: crypto.createHash('md5').update(username).digest('hex')
-        }, 'jwtSecret', {
+        }, jwtSecret, {
           expiresIn: 60 * 60
         })
         res.status(200).json({
@@ -64,7 +51,7 @@ app.prepare()
         message: 'Invalid token'
       }
       if (token) {
-        jwt.verify(token, 'jwtSecret', (err) => {
+        jwt.verify(token, jwtSecret, (err) => {
           if (!err) {
             response.success = true
             response.message = ''
@@ -78,9 +65,9 @@ app.prepare()
       return handle(req, res)
     })
 
-    server.listen(3000, (err) => {
+    server.listen(port, (err) => {
       if (err) throw err
-      console.log('> Ready on http://localhost:3000')
+      console.log('> Ready on http://localhost:' + port)
     })
   })
   .catch((ex) => {
