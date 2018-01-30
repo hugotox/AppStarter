@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000
 const app = next({dev})
 const handle = app.getRequestHandler()
 const jwtSecret = process.env.JWT_SECRET || 'jwtSecret'
+const jwtExpireMinutes = 60
 
 
 app.prepare()
@@ -28,7 +29,7 @@ app.prepare()
           username: username,
           xsrfToken: crypto.createHash('md5').update(username).digest('hex')
         }, jwtSecret, {
-          expiresIn: 60 * 60
+          expiresIn: 60 * jwtExpireMinutes
         })
         res.status(200).json({
           success: true,

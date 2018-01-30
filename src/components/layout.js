@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
+import Router from 'next/router'
 import NavBar from './navbar'
 import Footer from './footer'
 import skeleton from '../styles/skeleton.min.css'
 
 class Layout extends Component {
   state = {
-    visible: false
+    visible: false,
+    loading: false
   }
 
   static propTypes = {
     footer: PropTypes.node
   }
 
-  componentDidMount () {
+  componentDidMount() {
     setTimeout(() => {
       this.setState({visible: true})
     }, 1)
+    // todo: show loading only if new route takes more than X seconds
+    Router.onRouteChangeStart = () => this.setState({loading: true})
+    Router.onRouteChangeComplete = () => this.setState({loading: false})
+    Router.onRouteChangeError = () => this.setState({loading: false})
   }
 
   render() {
@@ -34,21 +40,26 @@ class Layout extends Component {
         <NavBar/>
 
         <div className={'animated ' + (this.state.visible ? 'visible' : '')}>
-          {children}
+          {this.state.loading ? <div className="container" style={{textAlign: 'center'}}>
+              Loading... <i className="fa fa-circle-notch fa-spin"></i>
+            </div>
+            :
+            children}
         </div>
 
         <Footer>{footer}</Footer>
 
         <style jsx>{ //language=CSS
-          `
-          .animated {
-            opacity: 0;
-            transition: all 200ms ease-in;
-            padding-top: 20px;
-          }
-          .visible {
-            opacity: 1;
-          }
+            `
+            .animated {
+              opacity: 0;
+              transition: all 200ms ease-in;
+              padding-top: 20px;
+            }
+
+            .visible {
+              opacity: 1;
+            }
           `
         }</style>
       </div>
