@@ -11,5 +11,6 @@ TODO:
 - [x] Verify token endpoint
 - [x] LoginRequired higher order component
 - [ ] After verifying the token, save it to the redux store so next time we don't have to verify again.
+- [ ] User types
 - [ ] Remember me feature
 - [ ] Route masking feature

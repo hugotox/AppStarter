@@ -24,6 +24,9 @@ class Index extends Component {
         <Link href="/private?a=5">
           <a>Private link</a>
         </Link>
+        <div>
+          FA Test: <i className="fa fa-lock"></i>
+        </div>
       </div>
     </Layout>
   }
