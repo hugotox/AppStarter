@@ -1,10 +1,10 @@
 import axios from 'axios'
 import * as constants from './constants'
-import {BASE_URL} from '../utils/constants'
+import {API_BASE_URL} from '../utils/constants'
 
 export function fetchData() {
   return dispatch => {
-    return axios.get(`${BASE_URL}/static/test.json`)
+    return axios.get(`${API_BASE_URL}/static/test.json`)
       .then(resp => {
         if(resp.status === 200) {
           dispatch({

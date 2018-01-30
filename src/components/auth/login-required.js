@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
-import jwt from 'jsonwebtoken'
 import {verifyToken} from './actions'
 
 export default (permissions = []) => {
