@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Router from 'next/router'
+import { withRouter } from 'next/router'
 import NavBar from './navbar'
 import Footer from './footer'
 import skeleton from '../styles/skeleton.min.css'
@@ -21,9 +22,11 @@ class Layout extends Component {
       this.setState({visible: true})
     }, 1)
     // todo: show loading only if new route takes more than X seconds
-    Router.onRouteChangeStart = () => this.setState({loading: true})
-    Router.onRouteChangeComplete = () => this.setState({loading: false})
-    Router.onRouteChangeError = () => this.setState({loading: false})
+    Router.onRouteChangeStart = (url) => {
+      if(url.split('?')[0] !== this.props.router.asPath.split('?')[0]) {
+        this.setState({loading: true})
+      }
+    }
   }
 
   render() {
@@ -67,4 +70,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout
+export default withRouter(Layout)
