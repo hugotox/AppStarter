@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './styles'
 
 class Footer extends Component {
   render() {
@@ -14,6 +15,7 @@ class Footer extends Component {
     return (
       <div className="footer">
         {content}
+        <style jsx>{styles}</style>
       </div>
     )
   }

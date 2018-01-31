@@ -4,9 +4,9 @@ import Head from 'next/head'
 import Router from 'next/router'
 import { withRouter } from 'next/router'
 import { connect } from 'react-redux'
-import NavBar from './navbar'
-import Footer from './footer'
-import skeleton from '../styles/skeleton.min.css'
+import NavBar from '../navbar'
+import Footer from '../footer'
+import skeleton from './styles/skeleton.min.css'
 
 class Layout extends Component {
   state = {
