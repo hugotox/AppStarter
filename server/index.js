@@ -52,10 +52,11 @@ app.prepare()
         message: 'Invalid token'
       }
       if (token) {
-        jwt.verify(token, jwtSecret, (err) => {
+        jwt.verify(token, jwtSecret, (err, decoded) => {
           if (!err) {
             response.success = true
             response.message = ''
+            response.username = decoded.username
           }
         })
       }

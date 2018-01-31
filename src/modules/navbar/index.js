@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import {connect} from 'react-redux'
+import {logout} from "../auth/actions"
 import styles from './styles'
 
 class NavBar extends Component {
+  handleLogout = () => {
+    this.props.dispatch(logout())
+  }
   render() {
     const {username} = this.props
     return (
@@ -21,7 +25,7 @@ class NavBar extends Component {
               </div>
             </div>
             {username ?
-              <div className="link">{username}</div>
+              <div className="link" onClick={this.handleLogout}>Logout</div>
               :
               <Link href="/login">
                 <a className="link">Login</a>

@@ -44,6 +44,7 @@ export default css
     display: flex;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
   }
 
   a.link {

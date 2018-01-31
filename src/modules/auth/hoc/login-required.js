@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
-import {verifyToken} from './actions'
+import {verifyToken} from '../actions'
+import {SET_TOKEN} from '../constants'
 
 export default (permissions = []) => {
   return Component => {
@@ -17,7 +18,8 @@ export default (permissions = []) => {
           if (result.status === 200 && result.data.success) {
             // verification ok
             store.dispatch({
-              type: '@@AUTH/SET_TOKEN',
+              type: SET_TOKEN,
+              username: result.data.username,
               token
             })
           } else if (!isPublicPage) {

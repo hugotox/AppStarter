@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
 import initStore from '../src/store'
-import Layout from '../src/components/layout'
-import loginRequired from '../src/components/auth/login-required'
-import { fetchData } from "../src/index/actions"
+import Layout from '../src/modules/layout'
+import loginRequired from '../src/modules/auth/hoc/login-required'
+import { fetchData } from "../src/pages/index/actions"
 
 
 class Index extends Component {

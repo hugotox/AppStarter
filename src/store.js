@@ -1,8 +1,8 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
-import auth from './components/auth/reducer'
-import index from './index/reducer'
+import auth from './modules/auth/reducer'
+import index from './pages/index/reducer'
 
 const reducers = combineReducers({
   auth,

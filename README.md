@@ -7,11 +7,11 @@ TODO:
 - [x] Redux integration
 - [x] Async fetch data server & client side
 - [x] Login endpoint
-- [ ] Logout endpoint
+- [x] Logout endpoint
 - [x] Verify token endpoint
 - [x] LoginRequired higher order component
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
-- [ ] Show logged in username in navbar
+- [x] Show logged in username in navbar
 - [ ] User types
 - [ ] Remember me feature
 - [ ] Route masking feature
