@@ -18,15 +18,24 @@ class Layout extends Component {
   }
 
   componentDidMount() {
+    this._mounted = true
     setTimeout(() => {
       this.setState({visible: true})
     }, 1)
-    // todo: show loading only if new route takes more than X seconds
+    // show loading only if new route takes more than 200 ms
     Router.onRouteChangeStart = (url) => {
       if(url.split('?')[0] !== this.props.router.asPath.split('?')[0]) {
-        this.setState({loading: true})
+        setTimeout(() => {
+          if(this._mounted) {
+            this.setState({loading: true})
+          }
+        }, 200)
       }
     }
+  }
+
+  componentWillUnmount() {
+    this._mounted = false
   }
 
   render() {
