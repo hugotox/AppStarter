@@ -1,5 +1,6 @@
 const initialState = {
-  token: null
+  token: null,
+  username: null
 }
 
 export default function(state=initialState, action) {

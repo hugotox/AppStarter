@@ -10,7 +10,8 @@ TODO:
 - [ ] Logout endpoint
 - [x] Verify token endpoint
 - [x] LoginRequired higher order component
-- [ ] After verifying the token, save it to the redux store so next time we don't have to verify again.
+- [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
+- [ ] Show logged in username in navbar
 - [ ] User types
 - [ ] Remember me feature
 - [ ] Route masking feature

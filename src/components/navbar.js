@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
+import {connect} from 'react-redux'
 
 const navbarHeight = '50px'
 
 class NavBar extends Component {
   render() {
+    const {username} = this.props
     return (
       <div className="navbar-wrapper">
         <div className="container">
@@ -19,9 +21,13 @@ class NavBar extends Component {
                 <div className="link"><a>World</a></div>
               </div>
             </div>
-            <Link href="/login">
-              <a className="link">Login</a>
-            </Link>
+            {username ?
+              <div className="link">{username}</div>
+              :
+              <Link href="/login">
+                <a className="link">Login</a>
+              </Link>
+            }
             <div className="menu">
               <i className="fa fa-bars"></i>
             </div>
@@ -29,7 +35,7 @@ class NavBar extends Component {
         </div>
 
         <style jsx>{ //language=CSS
-            `
+          `
             .navbar-wrapper {
               background-color: #222222;
               color: white;
@@ -107,4 +113,10 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar
+const mapStateToProps = state => {
+  return {
+    username: state.auth.username
+  }
+}
+
+export default connect(mapStateToProps)(NavBar)
