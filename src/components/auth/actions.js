@@ -8,6 +8,10 @@ export function login(payload, next) {
     return axios.post(`${API_BASE_URL}/api/login`, payload)
       .then(resp => {
         if(resp.status === 200 && resp.data.success) {
+          dispatch({
+            type: '@@AUTH/SET_TOKEN',
+            token: resp.data.token
+          })
           Cookies.set('x-access-token', resp.data.token)
           Router.push(next)
         }

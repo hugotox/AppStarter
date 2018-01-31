@@ -9,7 +9,7 @@ class Login extends Component {
     super(props)
     const {url} = props
     const query = url.query
-    const next = query.next || ''
+    const next = query.next || '/'
     this.state = {
       username: '',
       password: '',

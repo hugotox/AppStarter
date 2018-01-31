@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
 import initStore from '../src/store'
 import Layout from '../src/components/layout'
 import {fetchData} from "../src/index/actions"
+import loginRequired from '../src/components/auth/login-required'
 
 
 class About extends Component {
@@ -24,4 +24,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRedux(initStore, mapStateToProps)(About)
+export default withRedux(initStore, mapStateToProps)(
+  loginRequired(['public'])(About)
+)

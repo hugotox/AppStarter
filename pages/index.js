@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
 import initStore from '../src/store'
-
 import Layout from '../src/components/layout'
+import loginRequired from '../src/components/auth/login-required'
 import { fetchData } from "../src/index/actions"
 
 
@@ -38,4 +38,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRedux(initStore, mapStateToProps)(Index)
+export default withRedux(initStore, mapStateToProps)(
+  loginRequired(['public'])(Index)
+)

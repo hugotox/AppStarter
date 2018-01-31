@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Router from 'next/router'
 import { withRouter } from 'next/router'
+import { connect } from 'react-redux'
 import NavBar from './navbar'
 import Footer from './footer'
 import skeleton from '../styles/skeleton.min.css'
@@ -14,7 +15,9 @@ class Layout extends Component {
   }
 
   static propTypes = {
-    footer: PropTypes.node
+    footer: PropTypes.node,
+    title: PropTypes.string,
+    router: PropTypes.object
   }
 
   componentDidMount() {
@@ -79,4 +82,4 @@ class Layout extends Component {
   }
 }
 
-export default withRouter(Layout)
+export default connect()(withRouter(Layout))
