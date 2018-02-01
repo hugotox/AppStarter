@@ -70,6 +70,7 @@ class Layout extends Component {
               opacity: 0;
               transition: all 200ms ease-in;
               padding-top: 20px;
+              min-height: 670px;
             }
 
             .visible {
