@@ -2,6 +2,8 @@
 
 TODO:
 
+- [ ] Docs/comments
+- [ ] Tests
 - [x] Load static css and render it server side
 - [x] Animated page transitions
 - [x] Redux integration
@@ -12,6 +14,6 @@ TODO:
 - [x] LoginRequired higher order component
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
 - [x] Show logged in username in navbar
-- [ ] User types
+- [x] User types
 - [ ] Remember me feature
 - [ ] Route masking feature

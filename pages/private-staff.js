@@ -3,13 +3,14 @@ import withRedux from 'next-redux-wrapper'
 import Layout from '../src/components/layout'
 import initStore from '../src/store'
 import loginRequired from '../src/components/auth/hoc/login-required'
+import {STAFF} from "../src/config/user-types"
 
-class Private extends Component {
+class PrivateStaff extends Component {
   render () {
     return (
       <Layout>
         <div className="container">
-          <h1>This is private content</h1>
+          <h1>This is private content for staff only</h1>
         </div>
       </Layout>
     )
@@ -17,5 +18,5 @@ class Private extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired()(Private)
+  loginRequired([STAFF])(PrivateStaff)
 )

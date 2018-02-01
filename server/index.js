@@ -26,6 +26,7 @@ app.prepare()
       const {username, password} = req.body
       if (username === 'test' && password === '123') {
         const token = jwt.sign({
+          userType: 'USER',
           username: username,
           xsrfToken: crypto.createHash('md5').update(username).digest('hex')
         }, jwtSecret, {
@@ -36,8 +37,23 @@ app.prepare()
           message: 'Enjoy your token',
           token: token
         })
+
+      } else if(username === 'staff' && password === '123') {
+        const token = jwt.sign({
+          userType: 'STAFF',
+          username: username,
+          xsrfToken: crypto.createHash('md5').update(username).digest('hex')
+        }, jwtSecret, {
+          expiresIn: 60 * jwtExpireMinutes
+        })
+        res.status(200).json({
+          success: true,
+          message: 'Enjoy your token',
+          token: token
+        })
+
       } else {
-        res.status(403).json({
+        res.status(400).json({
           success: false,
           message: 'Authentication failed'
         })
@@ -57,6 +73,7 @@ app.prepare()
             response.success = true
             response.message = ''
             response.username = decoded.username
+            response.userType = decoded.userType
           }
         })
       }

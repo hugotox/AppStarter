@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
-import {API_BASE_URL} from '../../utils/constants'
+import {API_BASE_URL} from '../../config/base-url'
 import {SET_TOKEN, LOGOUT} from './constants'
 
 export function login(payload, next) {
