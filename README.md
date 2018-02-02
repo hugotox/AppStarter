@@ -17,3 +17,5 @@ TODO:
 - [x] User types
 - [ ] Remember me feature
 - [ ] Route masking feature
+- [ ] Django Rest example
+- [ ] Django graphql example

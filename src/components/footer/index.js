@@ -7,7 +7,7 @@ class Footer extends Component {
     const {children} = this.props
     const year = moment().format('YYYY')
     let content
-    if(children) {
+    if (children) {
       content = children
     } else {
       content = (

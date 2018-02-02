@@ -5,7 +5,7 @@ import initStore from '../src/store'
 import Layout from '../src/components/layout'
 import loginRequired from '../src/components/auth/hoc/login-required'
 import { fetchData } from "../src/pages/index/actions"
-import {PUBLIC} from "../src/config/user-types"
+import { PUBLIC } from "../src/config/user-types"
 
 class Index extends Component {
   static async getInitialProps({store}) {

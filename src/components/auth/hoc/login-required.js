@@ -5,10 +5,6 @@ import { verifyToken } from '../actions'
 import { SET_TOKEN } from '../constants'
 import { PUBLIC } from "../../../config/user-types"
 
-// TODO: case when anon user navigates to staff required page, and logs in with normal user account. Expected: show error
-
-// BUG: if user is not logged in, verify token gets called every page change, because storeToken is null
-
 export default (permissions = []) => {
   return Component => {
     return class LoginRequired extends Component {
@@ -42,15 +38,35 @@ export default (permissions = []) => {
       }
 
       static async getInitialProps(context) {
-        const isPublicPage = permissions.indexOf(PUBLIC) !== -1
         const {isServer, req, res, store} = context
+        // public page passes the permission PUBLIC to this function
+        const isPublicPage = permissions.indexOf(PUBLIC) !== -1
+        // get the token from the cookie
         const token = isServer ? req.cookies['x-access-token'] : Cookies.get('x-access-token')
+        // get the copy of the token saved in redux
         const storeToken = store.getState().auth.token
+        let result = null
+
+        if (!storeToken) {
+          if (token) {
+            // if storeToken is null but I do have a cookie token, means this is the first server render so we need
+            // to verify this token
+            result = await store.dispatch(verifyToken(token))
+          } else {
+            // no token means anon user
+            store.dispatch({
+              type: SET_TOKEN,
+              username: 'anon',
+              token: 'anon'
+            })
+          }
+        }
 
         // verify token always for protected pages (!isPublic)
-        // OR if the redux store doesn't have the token, meaning this is the first load from server
         if (!isPublicPage || !storeToken) {
-          const result = await store.dispatch(verifyToken(token))
+          if (!result) {
+            result = await store.dispatch(verifyToken(token))
+          }
           if (result.status === 200 && result.data.success) {
             // token is valid. Now verify the required permissions
             if (isPublicPage) {
@@ -59,7 +75,7 @@ export default (permissions = []) => {
               const userType = result.data.userType
               let auth = true
               // go here only if we have specific permission requirements
-              if(permissions.length > 0) {
+              if (permissions.length > 0) {
                 auth = false  // will let him pass if he has at least one permission
                 for (let i = 0, l = permissions.length; i < l; i++) {
                   if (userType === permissions[i]) {

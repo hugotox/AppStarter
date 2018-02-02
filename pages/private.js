@@ -5,7 +5,7 @@ import initStore from '../src/store'
 import loginRequired from '../src/components/auth/hoc/login-required'
 
 class Private extends Component {
-  render () {
+  render() {
     return (
       <Layout>
         <div className="container">

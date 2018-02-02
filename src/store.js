@@ -1,5 +1,5 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import auth from './components/auth/reducer'
 import index from './pages/index/reducer'

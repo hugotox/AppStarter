@@ -4,7 +4,7 @@ const initialState = {
   message: null
 }
 
-export default function(state=initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case constants.FETCH_DATA_DONE: {
       return {...state, message: action.data.message}

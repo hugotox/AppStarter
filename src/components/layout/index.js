@@ -27,9 +27,9 @@ class Layout extends Component {
     }, 1)
     // show loading only if new route takes more than 200 ms
     Router.onRouteChangeStart = (url) => {
-      if(url.split('?')[0] !== this.props.router.asPath.split('?')[0]) {
+      if (url.split('?')[0] !== this.props.router.asPath.split('?')[0]) {
         setTimeout(() => {
-          if(this._mounted) {
+          if (this._mounted) {
             this.setState({loading: true})
           }
         }, 200)
@@ -65,7 +65,7 @@ class Layout extends Component {
         <Footer>{footer}</Footer>
 
         <style jsx>{ //language=CSS
-            `
+          `
             .animated {
               opacity: 0;
               transition: all 200ms ease-in;

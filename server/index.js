@@ -38,7 +38,7 @@ app.prepare()
           token: token
         })
 
-      } else if(username === 'staff' && password === '123') {
+      } else if (username === 'staff' && password === '123') {
         const token = jwt.sign({
           userType: 'STAFF',
           username: username,
