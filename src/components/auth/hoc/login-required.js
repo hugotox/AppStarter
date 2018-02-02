@@ -6,7 +6,7 @@ import { SET_TOKEN } from '../constants'
 import { PUBLIC } from "../../../config/user-types"
 
 export default (permissions = []) => {
-  return Component => {
+  return ChildComponent => {
     return class LoginRequired extends Component {
 
       static verificationOk(store, result, token) {
@@ -98,14 +98,14 @@ export default (permissions = []) => {
           }
         }
 
-        if (typeof Component.getInitialProps === 'function') {
-          await Component.getInitialProps(context)
+        if (typeof ChildComponent.getInitialProps === 'function') {
+          await ChildComponent.getInitialProps(context)
         }
 
       }
 
       render() {
-        return <Component {...this.props}/>
+        return <ChildComponent {...this.props}/>
       }
 
     }

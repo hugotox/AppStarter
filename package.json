@@ -2,14 +2,16 @@
   "name": "app-starter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "node server/index.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=production node server/index.js",
+    "test": "jest"
   },
   "author": "Hugo Pineda",
-  "license": "ISC",
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js"
+  },
   "dependencies": {
     "autoprefixer": "^7.2.5",
     "axios": "^0.17.1",
@@ -42,6 +44,10 @@
     "styled-jsx": "^2.2.3"
   },
   "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.1.4",
+    "react-test-renderer": "^16.2.0",
     "uglifycss": "0.0.27"
   }
 }
