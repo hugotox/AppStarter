@@ -3,7 +3,7 @@
 TODO:
 
 - [ ] Docs/comments
-- [ ] Tests
+- [x] Tests
 - [x] Load static css and render it server side
 - [x] Animated page transitions
 - [x] Redux integration

@@ -6,7 +6,8 @@
     "dev": "node server/index.js",
     "build": "next build",
     "start": "NODE_ENV=production node server/index.js",
-    "test": "jest"
+    "test": "jest",
+    "nightwatch": "nightwatch"
   },
   "author": "Hugo Pineda",
   "jest": {
@@ -47,6 +48,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.1.4",
+    "nightwatch": "^0.9.19",
     "react-test-renderer": "^16.2.0",
     "uglifycss": "0.0.27"
   }
