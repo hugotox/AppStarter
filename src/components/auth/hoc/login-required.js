@@ -7,6 +7,8 @@ import { PUBLIC } from "../../../config/user-types"
 
 // TODO: case when anon user navigates to staff required page, and logs in with normal user account. Expected: show error
 
+// BUG: if user is not logged in, verify token gets called every page change, because storeToken is null
+
 export default (permissions = []) => {
   return Component => {
     return class LoginRequired extends Component {
