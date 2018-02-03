@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const routeMasking = require('./route-masking')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -22,13 +23,8 @@ app.prepare()
     server.use(bodyParser.urlencoded({extended: true}))
     server.use(bodyParser.json())
 
-    // TODO: move dynamic URLS to separate file
     // dynamic URLS
-    server.get('/dynamic/:id', (req, res) => {
-      const actualPage = '/dynamic'
-      const queryParams = { id: req.params.id }
-      app.render(req, res, actualPage, queryParams)
-    })
+    routeMasking(app, server)
 
     server.post('/api/login', (req, res) => {
       const {username, password} = req.body
