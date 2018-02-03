@@ -33,6 +33,21 @@ class Index extends Component {
           </Link>
         </div>
         <div>
+          <Link href="/dynamic?id=1" as="/dynamic/1">
+            <a>Dynamic page 1</a>
+          </Link>
+        </div>
+        <div>
+          <Link href="/dynamic?id=2" as="/dynamic/2">
+            <a>Dynamic page 2</a>
+          </Link>
+        </div>
+        <div>
+          <Link href="/dynamic?id=3" as="/dynamic/3">
+            <a>Dynamic page 3</a>
+          </Link>
+        </div>
+        <div>
           FA Test: <i className="fa fa-lock"></i>
         </div>
       </div>

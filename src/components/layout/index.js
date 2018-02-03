@@ -68,7 +68,7 @@ class Layout extends Component {
           `
             .animated {
               opacity: 0;
-              transition: all 200ms ease-in;
+              transition: all 100ms ease-in;
               padding-top: 20px;
               min-height: 670px;
             }

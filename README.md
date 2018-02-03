@@ -2,8 +2,6 @@
 
 TODO:
 
-- [ ] Docs/comments
-- [x] Tests
 - [x] Load static css and render it server side
 - [x] Animated page transitions
 - [x] Redux integration
@@ -16,6 +14,8 @@ TODO:
 - [x] Show logged in username in navbar
 - [x] User types
 - [ ] Remember me feature
-- [ ] Route masking feature
+- [x] Route masking feature
 - [ ] Django Rest example
 - [ ] Django graphql example
+- [ ] Socket.io example
+- [x] Tests

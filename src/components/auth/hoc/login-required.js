@@ -5,6 +5,17 @@ import { verifyToken } from '../actions'
 import { SET_TOKEN } from '../constants'
 import { PUBLIC } from "../../../config/user-types"
 
+/**
+ * Higher order component for Next.js `pages` components.
+ * It reads the "x-access-token" cookie and calls the API to verify the token if its the first server
+ * render or if it's a page that requires permissions.
+ *
+ * To make a page public you have to pass PUBLIC user type as an element of the `permissions` parameter.
+ * This is required to be able to show current logged in information on the first server render.
+ *
+ * @param permissions: array of user types required to render this page. User PUBLIC to make the page public.
+ * @returns {function(*)}
+ */
 export default (permissions = []) => {
   return ChildComponent => {
     return class LoginRequired extends Component {

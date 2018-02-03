@@ -22,6 +22,14 @@ app.prepare()
     server.use(bodyParser.urlencoded({extended: true}))
     server.use(bodyParser.json())
 
+    // TODO: move dynamic URLS to separate file
+    // dynamic URLS
+    server.get('/dynamic/:id', (req, res) => {
+      const actualPage = '/dynamic'
+      const queryParams = { id: req.params.id }
+      app.render(req, res, actualPage, queryParams)
+    })
+
     server.post('/api/login', (req, res) => {
       const {username, password} = req.body
       if (username === 'test' && password === '123') {
