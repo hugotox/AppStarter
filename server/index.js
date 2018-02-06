@@ -12,8 +12,6 @@ const port = process.env.PORT || 3000
 const app = next({dev})
 const handle = app.getRequestHandler()
 const jwtSecret = process.env.JWT_SECRET || 'jwtSecret'
-const jwtExpireMinutes = 60
-
 
 app.prepare()
   .then(() => {
@@ -27,14 +25,15 @@ app.prepare()
     routeMasking(app, server)
 
     server.post('/api/login', (req, res) => {
-      const {username, password} = req.body
+      const {username, password, rememberMe} = req.body
+      let expiresIn = rememberMe ? '365d' : '2h'
       if (username === 'test' && password === '123') {
         const token = jwt.sign({
           userType: 'USER',
           username: username,
           xsrfToken: crypto.createHash('md5').update(username).digest('hex')
         }, jwtSecret, {
-          expiresIn: 60 * jwtExpireMinutes
+          expiresIn: expiresIn
         })
         res.status(200).json({
           success: true,
@@ -48,7 +47,7 @@ app.prepare()
           username: username,
           xsrfToken: crypto.createHash('md5').update(username).digest('hex')
         }, jwtSecret, {
-          expiresIn: 60 * jwtExpireMinutes
+          expiresIn: expiresIn
         })
         res.status(200).json({
           success: true,

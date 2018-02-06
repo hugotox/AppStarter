@@ -14,7 +14,7 @@ export function login(payload, next) {
             token: resp.data.token,
             username: payload.username
           })
-          Cookies.set('x-access-token', resp.data.token)
+          Cookies.set('x-access-token', resp.data.token, { expires: payload.rememberMe ? 365 : undefined })
           Router.push(next)
         }
       })

@@ -13,9 +13,10 @@ TODO:
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
 - [x] Show logged in username in navbar
 - [x] User types
-- [ ] Remember me feature
+- [x] Remember me feature
 - [x] Route masking feature
 - [ ] Django Rest example
 - [ ] Django graphql example
 - [ ] Socket.io example
-- [x] Tests
+- [x] Unit tests setup
+- [x] E2E tests setup
