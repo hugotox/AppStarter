@@ -6,16 +6,24 @@ import Layout from '../src/components/layout'
 import loginRequired from '../src/components/auth/hoc/login-required'
 import { fetchData } from "../src/pages/index/actions"
 import { PUBLIC } from "../src/config/user-types"
+import Modal from '../src/components/modal'
 
 class Index extends Component {
   static async getInitialProps({store}) {
     await store.dispatch(fetchData())
   }
 
+  state = {
+    modalVisible: false
+  }
+
+  toggleModal = () => {
+    this.setState({modalVisible: !this.state.modalVisible})
+  }
+
   render() {
     return <Layout>
       <div className="container">
-        <h1>Yo</h1>
         <h3>Message from the store: {this.props.message}</h3>
         <div>
           <Link href="/about">
@@ -48,9 +56,15 @@ class Index extends Component {
           </Link>
         </div>
         <div>
+          <button onClick={this.toggleModal}>Open modal</button>
+        </div>
+        <div>
           FA Test: <i className="fa fa-lock"></i>
         </div>
       </div>
+      <Modal visible={this.state.modalVisible} onClose={this.toggleModal}>
+        Hello from a modal
+      </Modal>
     </Layout>
   }
 }

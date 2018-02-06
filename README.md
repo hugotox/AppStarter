@@ -20,3 +20,10 @@ TODO:
 - [ ] Socket.io example
 - [x] Unit tests setup
 - [x] E2E tests setup
+- [ ] Make sure all components use propTypes
+- [ ] Move login logic to Django
+
+UI Widgets
+- [x] Responsive navbar
+- [x] Modal window
+- [ ] Fullscreen modal
