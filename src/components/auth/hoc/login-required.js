@@ -110,7 +110,8 @@ export default (permissions = []) => {
         }
 
         if (typeof ChildComponent.getInitialProps === 'function') {
-          await ChildComponent.getInitialProps(context)
+          const initProps = await ChildComponent.getInitialProps(context)
+          return initProps
         }
 
       }
