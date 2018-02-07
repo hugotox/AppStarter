@@ -12,7 +12,7 @@ TODO:
 - [x] LoginRequired higher order component
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
 - [ ] Verify token based on user group
-- [ ] Show logged in username in navbar
+- [x] Show logged in username in navbar
 - [x] User types
 - [x] Remember me feature
 - [x] Route masking feature

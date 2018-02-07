@@ -12,6 +12,7 @@ export function login(payload, next) {
           dispatch({
             type: SET_TOKEN,
             token: resp.data.token,
+            user: resp.data.user,
           })
           Cookies.set('x-access-token', resp.data.token, {expires: payload.rememberMe ? 365 : undefined})
           Router.push(next)

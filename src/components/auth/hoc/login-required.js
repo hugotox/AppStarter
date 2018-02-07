@@ -23,7 +23,8 @@ export default (permissions = []) => {
       static verificationOk(store, result, token) {
         store.dispatch({
           type: SET_TOKEN,
-          token
+          token,
+          user: result.data.user
         })
       }
 
@@ -66,7 +67,8 @@ export default (permissions = []) => {
             // no token means anon user
             store.dispatch({
               type: SET_TOKEN,
-              token: 'anon'
+              token: 'anon',
+              user: null
             })
           }
         }
