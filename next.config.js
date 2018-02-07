@@ -7,7 +7,9 @@ module.exports = {
   webpack: (config, {dev}) => {
 
     // override devtool if you want
-    // config.devtool = 'cheap-eval-source-map'
+    // if(dev) {
+    //   config.devtool = 'cheap-eval-source-map'
+    // }
 
     config.module.rules.push(
       {

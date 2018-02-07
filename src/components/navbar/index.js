@@ -10,7 +10,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {username} = this.props
+    const {token} = this.props
     return (
       <div className="navbar-wrapper">
         <div className="container">
@@ -25,7 +25,7 @@ class NavBar extends Component {
                 <div className="link"><a>World</a></div>
               </div>
             </div>
-            {username && username !== 'anon' ?
+            {token && token !== 'anon' ?
               <div className="link" onClick={this.handleLogout}>Logout</div>
               :
               <Link href="/login">
@@ -46,7 +46,7 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.auth.username
+    token: state.auth.token
   }
 }
 

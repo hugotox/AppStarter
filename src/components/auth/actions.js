@@ -6,18 +6,18 @@ import { SET_TOKEN, LOGOUT } from './constants'
 
 export function login(payload, next) {
   return dispatch => {
-    return axios.post(`${API_BASE_URL}/api/login`, payload)
+    return axios.post(`${API_BASE_URL}/obtain-token`, payload)
       .then(resp => {
-        if (resp.status === 200 && resp.data.success) {
+        if (resp.status === 200) {
           dispatch({
             type: SET_TOKEN,
             token: resp.data.token,
-            username: payload.username
           })
-          Cookies.set('x-access-token', resp.data.token, { expires: payload.rememberMe ? 365 : undefined })
+          Cookies.set('x-access-token', resp.data.token, {expires: payload.rememberMe ? 365 : undefined})
           Router.push(next)
         }
       })
+      .catch(err => err)
   }
 }
 
@@ -31,6 +31,8 @@ export function logout() {
 
 export function verifyToken(token) {
   return dispatch => {
-    return axios.post(`${API_BASE_URL}/api/verify-token`, {token})
+    return axios.post(`${API_BASE_URL}/verify-token`, {token})
+      .then(result => result)
+      .catch(err => err)
   }
 }

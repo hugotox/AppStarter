@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../../config/base-url'
 
 export function fetchData(id) {
   return dispatch => {
-    return axios.get(`${API_BASE_URL}/static/data-${id}.json`)
+    return axios.get(`${API_BASE_URL}/data/${id}`)
       .then(resp => {
         if (resp.status === 200) {
           dispatch({
@@ -13,6 +13,6 @@ export function fetchData(id) {
           })
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => err)
   }
 }

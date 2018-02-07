@@ -23,7 +23,6 @@ export default (permissions = []) => {
       static verificationOk(store, result, token) {
         store.dispatch({
           type: SET_TOKEN,
-          username: result.data.username,
           token
         })
       }
@@ -67,7 +66,6 @@ export default (permissions = []) => {
             // no token means anon user
             store.dispatch({
               type: SET_TOKEN,
-              username: 'anon',
               token: 'anon'
             })
           }
@@ -78,7 +76,7 @@ export default (permissions = []) => {
           if (!result) {
             result = await store.dispatch(verifyToken(token))
           }
-          if (result.status === 200 && result.data.success) {
+          if (result.status === 200) {
             // token is valid. Now verify the required permissions
             if (isPublicPage) {
               this.verificationOk(store, result, token)
