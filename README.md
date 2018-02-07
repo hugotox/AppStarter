@@ -11,7 +11,7 @@ TODO:
 - [x] Verify token endpoint
 - [x] LoginRequired higher order component
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
-- [ ] Verify token based on user group
+- [x] Verify token based on user group
 - [x] Show logged in username in navbar
 - [x] User types
 - [x] Remember me feature

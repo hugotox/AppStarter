@@ -83,15 +83,17 @@ export default (permissions = []) => {
             if (isPublicPage) {
               this.verificationOk(store, result, token)
             } else {
-              const userType = result.data.userType
+              const userGroups = result.data.user.groups
               let auth = true
               // go here only if we have specific permission requirements
               if (permissions.length > 0) {
                 auth = false  // will let him pass if he has at least one permission
                 for (let i = 0, l = permissions.length; i < l; i++) {
-                  if (userType === permissions[i]) {
-                    auth = true
-                    break
+                  for (let j = 0, k = userGroups.length; j < k; j++) {
+                    if (userGroups[j] === permissions[i]) {
+                      auth = true
+                      break
+                    }
                   }
                 }
               }
