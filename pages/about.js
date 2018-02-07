@@ -12,7 +12,7 @@ class About extends Component {
   }
 
   render() {
-    return <Layout>
+    return <Layout title="About">
       <div className="container">
         <h1>About us: {this.props.message}</h1>
       </div>

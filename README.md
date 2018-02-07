@@ -11,7 +11,7 @@ TODO:
 - [x] Verify token endpoint
 - [x] LoginRequired higher order component
 - [x] After verifying the token, save it to the redux store so next time we don't have to verify again.
-- [ ] Verify token based on user permission
+- [ ] Verify token based on user group
 - [ ] Show logged in username in navbar
 - [x] User types
 - [x] Remember me feature
@@ -21,7 +21,7 @@ TODO:
 - [ ] Socket.io example
 - [x] Unit tests setup
 - [x] E2E tests setup
-- [ ] Make sure all components use propTypes
+- [x] Make sure all components use propTypes
 - [x] Move login logic to Django
 
 UI Widgets
