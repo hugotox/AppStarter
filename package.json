@@ -43,11 +43,13 @@
     "styled-jsx": "^2.2.3"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.13.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.1.4",
     "nightwatch": "^0.9.19",
     "react-test-renderer": "^16.2.0",
+    "redux-mock-store": "^1.5.1",
     "uglifycss": "0.0.27"
   }
 }

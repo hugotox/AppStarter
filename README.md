@@ -1,6 +1,6 @@
 ### Next.js Example
 
-TODO:
+#### TODO:
 
 - [x] Load static css and render it server side
 - [x] Animated page transitions
@@ -28,3 +28,16 @@ UI Widgets
 - [x] Responsive navbar
 - [x] Modal window
 
+
+#### Run unit tests
+
+```$ npm run test```
+
+With coverage report
+
+```$ npm run test -- --coverage```
+
+
+#### Run E2E tests
+
+```$ npm run nightwatch```
