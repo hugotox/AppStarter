@@ -1,8 +1,14 @@
+
+function indexShowsMessageFromRedux(browser) {
+  const indexPage = browser.page.index()
+
+  indexPage.navigate()
+  indexPage.expect.element('@mainTitle').to.be.visible
+  indexPage.expect.element('@mainTitle').text.to.equal('Message from the store: Hello World from the API')
+
+  browser.end()
+}
+
 module.exports = {
-  'Demo test index page': function(browser) {
-    browser.url('http://localhost:4000/')
-      .waitForElementVisible('body', 1000)
-      .assert.containsText('h3', 'Message from the store: Hello World from the API')
-      .end();
-  }
+  'Demo test index page': indexShowsMessageFromRedux
 }

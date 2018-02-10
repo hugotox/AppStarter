@@ -41,3 +41,7 @@ With coverage report
 #### Run E2E tests
 
 ```$ npm run nightwatch```
+
+In headless mode:
+
+```$ npm run nightwatch -- -e headless```
