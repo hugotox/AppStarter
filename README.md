@@ -17,7 +17,7 @@
 - [x] Remember me feature
 - [x] Route masking feature
 - [x] Django Rest example
-- [ ] Django graphql example
+- [x] Django graphql example (using apollo)
 - [ ] Socket.io example
 - [x] Unit tests setup
 - [x] E2E tests setup

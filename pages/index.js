@@ -7,6 +7,9 @@ import loginRequired from '../src/components/auth/hoc/login-required'
 import { fetchData } from "../src/pages/index/actions"
 import { PUBLIC } from "../src/config/user-types"
 import Modal from '../src/components/modal'
+import withApollo from '../src/components/apollo/with-apollo'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
 class Index extends Component {
   static async getInitialProps({store}) {
@@ -22,6 +25,8 @@ class Index extends Component {
   }
 
   render() {
+    const allOwners = this.props.data.allOwners || []
+
     return <Layout>
       <div className="container">
         <h3>Message from the store: {this.props.message}</h3>
@@ -56,8 +61,8 @@ class Index extends Component {
           </Link>
         </div>
         <div>
-          <button onClick={this.toggleModal}>Open modal</button> &nbsp;
-          <button className="button-primary" onClick={this.toggleModal}>Open modal</button>
+          <button onClick={this.toggleModal}>Open apollo data</button> &nbsp;
+          <button className="button-primary" onClick={this.toggleModal}>Open apollo data</button>
         </div>
         <div className="box">I'm in a box</div>
         <div>
@@ -65,11 +70,26 @@ class Index extends Component {
         </div>
       </div>
       <Modal visible={this.state.modalVisible} onClose={this.toggleModal}>
-        Hello from a modal
+        Data from Apollo:
+        {allOwners.map(owner => {
+          return (
+            <div key={owner.id}>{owner.name}</div>
+          )
+        })}
       </Modal>
     </Layout>
   }
 }
+
+const fetchApolloData = gql`
+{
+  allOwners {
+    id, name, petSet {id, name}
+  }
+}
+`
+
+const ApolloIndex = graphql(fetchApolloData)(Index)
 
 function mapStateToProps(state) {
   return {
@@ -78,5 +98,7 @@ function mapStateToProps(state) {
 }
 
 export default withRedux(initStore, mapStateToProps)(
-  loginRequired([PUBLIC])(Index)
+  loginRequired([PUBLIC])(
+    withApollo(ApolloIndex)
+  )
 )
