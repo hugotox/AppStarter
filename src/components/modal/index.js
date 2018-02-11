@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import theme from '../../config/theme'
 
 class Modal extends Component {
   static propTypes = {
@@ -12,6 +13,16 @@ class Modal extends Component {
     visible: false
   }
 
+  componentWillReceiveProps (nextProps) {
+    if(!this.props.visible && nextProps.visible) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.height = '100vh'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.height = ''
+    }
+  }
+
   contentClick = e => {
     e.stopPropagation()
   }
@@ -20,7 +31,10 @@ class Modal extends Component {
     const {visible, children, onClose} = this.props
     return (
       <div className={visible ? 'modal-wrapper visible' : 'modal-wrapper'} onClick={onClose}>
-        <div className="modal-content" onClick={this.contentClick}>
+        <div className="modal" onClick={this.contentClick}>
+          <div className="close" onClick={onClose}>
+            ✕
+          </div>
           {children}
         </div>
         <style jsx>{/*language=CSS*/
@@ -34,7 +48,7 @@ class Modal extends Component {
               opacity: 0;
               visibility: hidden;
               transition: all 0.3s;
-              background-color: rgba(100,100,100,0.3);
+              background-color: rgba(100, 100, 100, 0.2);
             }
 
             .visible {
@@ -42,14 +56,21 @@ class Modal extends Component {
               visibility: visible;
             }
 
-            .modal-content {
+            .modal {
               background-color: white;
               position: absolute;
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%);
-              border: solid 1px #ccc;
               padding: 20px 40px;
+            }
+
+            .close {
+              position: absolute;
+              color: ${theme.colors.defaultTextColor};
+              right: 10px;
+              top: 5px;
+              cursor: pointer;
             }
           `
         }</style>

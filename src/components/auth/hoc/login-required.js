@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { verifyToken } from '../actions'
-import { SET_TOKEN } from '../constants'
+import { LOGOUT, SET_TOKEN } from '../constants'
 import { PUBLIC } from "../../../config/user-types"
 
 /**
@@ -63,6 +63,10 @@ export default (permissions = []) => {
             // if storeToken is null but I do have a cookie token, means this is the first server render so we need
             // to verify this token
             result = await store.dispatch(verifyToken(token))
+            if(result.status !== 200) {
+              store.dispatch({type: LOGOUT})
+              Cookies.remove('x-access-token')
+            }
           } else {
             // no token means anon user
             store.dispatch({

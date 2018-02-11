@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css'
+import theme from '../../config/theme'
 
 const navbarHeight = '50px'
 
@@ -6,7 +7,7 @@ export default css
   // language=CSS
   `
   .navbar-wrapper {
-    background-color: #222222;
+    background-color: ${theme.colors.black};
     color: white;
     height: ${navbarHeight};
   }
@@ -23,7 +24,6 @@ export default css
     height: ${navbarHeight};
     cursor: pointer;
     color: #b5b5b5;
-    transition: color 200ms;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -50,7 +50,6 @@ export default css
   a.link {
     color: #b5b5b5;
     text-decoration: none;
-    transition: color 200ms;
   }
 
   a.link:hover {

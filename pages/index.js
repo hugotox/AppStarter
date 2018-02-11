@@ -56,8 +56,10 @@ class Index extends Component {
           </Link>
         </div>
         <div>
-          <button onClick={this.toggleModal}>Open modal</button>
+          <button onClick={this.toggleModal}>Open modal</button> &nbsp;
+          <button className="button-primary" onClick={this.toggleModal}>Open modal</button>
         </div>
+        <div className="box">I'm in a box</div>
         <div>
           FA Test: <i className="fa fa-lock"></i>
         </div>

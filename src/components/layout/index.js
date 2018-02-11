@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import NavBar from '../navbar'
 import Footer from '../footer'
 import skeleton from './styles/skeleton.min.css'
+import globalStyles from '../../global-styles'
 
 class Layout extends Component {
   state = {
@@ -78,6 +79,8 @@ class Layout extends Component {
             }
           `
         }</style>
+
+        <style jsx global>{globalStyles}</style>
       </div>
     )
   }
