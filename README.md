@@ -23,6 +23,7 @@
 - [x] E2E tests setup
 - [x] Make sure all components use propTypes
 - [x] Move login logic to Django
+- [ ] Client side form validation
 
 UI Widgets
 - [x] Responsive navbar
