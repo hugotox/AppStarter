@@ -7,6 +7,14 @@ import { PUBLIC } from "../../../config/user-types"
 
 /**
  * Higher order component for Next.js `pages` components.
+ *
+ * NOTE: depends of redux store. So you must use thw `withRedux` HOC before this one.
+ * E.G.
+ *
+ * export default withRedux(initStore, mapStateToProps)(
+ *   loginRequired([PUBLIC])(MyPage)
+ * )
+ *
  * It reads the "x-access-token" cookie and calls the API to verify the token if its the first server
  * render or if it's a page that requires permissions.
  *

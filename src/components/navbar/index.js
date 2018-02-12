@@ -3,10 +3,15 @@ import Link from 'next/link'
 import { connect } from 'react-redux'
 import { logout } from "../auth/actions"
 import styles from './styles'
+import { openDrawer } from '../drawer/actions'
 
 class NavBar extends Component {
   handleLogout = () => {
     this.props.dispatch(logout())
+  }
+
+  handleOpenDrawer = () => {
+    this.props.dispatch(openDrawer())
   }
 
   render() {
@@ -36,7 +41,7 @@ class NavBar extends Component {
               </Link>
             }
             <div className="menu">
-              <i className="fa fa-bars"></i>
+              <i className="fa fa-bars" onClick={this.handleOpenDrawer}></i>
             </div>
           </div>
         </div>
