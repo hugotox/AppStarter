@@ -49,7 +49,7 @@ class Layout extends Component {
         <Head>
           <title>{title}</title>
           <meta name='viewport' content='initial-scale=1.0, width=device-width'/>
-          <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+          <script src="https://use.fontawesome.com/d599b86078.js"></script>
           <style dangerouslySetInnerHTML={{__html: skeleton}}/>
         </Head>
 
@@ -57,7 +57,7 @@ class Layout extends Component {
 
         <div className={'animated ' + (this.state.visible ? 'visible' : '')}>
           {this.state.loading ? <div className="container" style={{textAlign: 'center'}}>
-              Loading... <i className="fa fa-circle-notch fa-spin"></i>
+              Loading... <i className="fa fa-circle-o-notch fa-spin"></i>
             </div>
             :
             children}
