@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as constants from './constants'
-import { API_BASE_URL } from '../../config/base-url'
+import { API_BASE_URL } from 'config/base-url'
 
 export function fetchData(id) {
   return dispatch => {

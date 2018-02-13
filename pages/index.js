@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
-import initStore from '../src/store'
-import Layout from '../src/components/layout'
-import loginRequired from '../src/components/auth/hoc/login-required'
-import { PUBLIC } from "../src/config/user-types"
+import initStore from 'initStore'
+import Layout from 'components/layout'
+import loginRequired from 'components/auth/hoc/login-required'
+import { PUBLIC } from "config/user-types"
 
 
 class Index extends Component {

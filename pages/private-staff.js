@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
-import Layout from '../src/components/layout'
-import initStore from '../src/store'
-import loginRequired from '../src/components/auth/hoc/login-required'
-import { STAFF } from "../src/config/user-types"
+import Layout from 'components/layout'
+import initStore from 'initStore'
+import loginRequired from 'components/auth/hoc/login-required'
+import { STAFF } from "config/user-types"
 
 class PrivateStaff extends Component {
   render() {

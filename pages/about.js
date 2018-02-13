@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
-import initStore from '../src/store'
-import Layout from '../src/components/layout'
-import { fetchData } from "../src/pages/index/actions"
-import loginRequired from '../src/components/auth/hoc/login-required'
-import { PUBLIC } from "../src/config/user-types"
+import initStore from 'initStore'
+import Layout from 'components/layout'
+import { fetchData } from "pages/index/actions"
+import loginRequired from 'components/auth/hoc/login-required'
+import { PUBLIC } from "config/user-types"
 
 class About extends Component {
   static async getInitialProps({store}) {

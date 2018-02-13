@@ -6,8 +6,9 @@ import { withRouter } from 'next/router'
 import NavBar from '../navbar'
 import Drawer from '../drawer'
 import Footer from '../footer'
+import Loading from 'components/loading'
 import skeleton from './styles/skeleton.min.css'
-import globalStyles from '../../global-styles'
+import globalStyles from 'global-styles'
 
 class Layout extends Component {
   state = {
@@ -56,9 +57,7 @@ class Layout extends Component {
         <NavBar/>
 
         <div className={'animated ' + (this.state.visible ? 'visible' : '')}>
-          {this.state.loading ? <div className="container" style={{textAlign: 'center'}}>
-              Loading... <i className="fa fa-circle-o-notch fa-spin"></i>
-            </div>
+          {this.state.loading ? <Loading/>
             :
             children}
         </div>
