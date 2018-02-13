@@ -41,7 +41,7 @@ const ApolloPageWrapped = withApollo(
 )
 
 export default withRedux(initStore, null)(
-  loginRequired([PUBLIC])(ApolloPageWrapped)
+  loginRequired(ApolloPageWrapped, [PUBLIC])
 )
 
 

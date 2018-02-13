@@ -48,5 +48,5 @@ class Index extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired([PUBLIC])(Index)
+  loginRequired(Index, [PUBLIC])
 )

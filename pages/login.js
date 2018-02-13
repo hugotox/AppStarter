@@ -73,5 +73,5 @@ class Login extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired([PUBLIC])(Login)
+  loginRequired(Login, [PUBLIC])
 )

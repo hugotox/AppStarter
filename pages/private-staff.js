@@ -18,5 +18,5 @@ class PrivateStaff extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired([STAFF])(PrivateStaff)
+  loginRequired(PrivateStaff, [STAFF])
 )
