@@ -32,19 +32,19 @@ describe('LoginRequired test', function () {
   })
 
   it('Can wrap a react component', () => {
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     const wrapper = mount(<DummyWrapped/>)
     expect(wrapper.find('div.container').length).toBe(1)
   })
 
   it('Defines a `getInitialProps` static function', () => {
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     expect(typeof DummyWrapped.getInitialProps).toBe('function')
 
   })
 
   it('Defines a `verificationOk` static function to dispatch SET_TOKEN action', () => {
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     const store = mockStore({})
     const expectedActions = [{
       type: SET_TOKEN,
@@ -58,7 +58,7 @@ describe('LoginRequired test', function () {
   })
 
   it('should define a `redirectToLogin` static function', function () {
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     expect(typeof DummyWrapped.redirectToLogin).toBe('function')
 
     // server side
@@ -84,7 +84,7 @@ describe('LoginRequired test', function () {
   })
 
   it('should define a `redirectTo404` static function', function () {
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     expect(typeof DummyWrapped.redirectTo404).toBe('function')
 
     // server side
@@ -134,7 +134,7 @@ describe('LoginRequired test', function () {
         }
       })
 
-    const DummyWrapped = LoginRequired()(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp)
     expect(typeof DummyWrapped.getInitialProps).toBe('function')
 
     DummyWrapped.getInitialProps(context)
@@ -171,7 +171,7 @@ describe('LoginRequired test', function () {
         }
       })
 
-    const DummyWrapped = LoginRequired(['STAFF'])(DummyComp)
+    const DummyWrapped = LoginRequired(DummyComp, ['STAFF'])
     expect(typeof DummyWrapped.getInitialProps).toBe('function')
 
     DummyWrapped.getInitialProps(context)
