@@ -18,6 +18,7 @@
 - [x] Route masking feature
 - [x] Django Rest example
 - [x] Django graphql example (using apollo)
+- [ ] Django graphql example (with authentication)
 - [ ] Socket.io example
 - [x] Unit tests setup
 - [x] E2E tests setup
