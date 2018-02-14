@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
-import initStore from 'initStore'
+import initStore from 'init-store'
 import Layout from 'components/layout'
 import Modal from 'components/modal'
 

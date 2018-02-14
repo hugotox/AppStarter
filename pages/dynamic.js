@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
-import initStore from 'initStore'
+import initStore from 'init-store'
 import Layout from 'components/layout'
-import loginRequired from 'components/auth/hoc/login-required'
+import loginRequired from 'components/auth/login-required'
 import { fetchData } from "pages/dynamic/actions"
-import { PUBLIC } from "config/user-types"
+import { PUBLIC } from "components/auth/user-types"
 
 class Dynamic extends Component {
   static async getInitialProps({query, store}) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import Layout from 'components/layout'
-import initStore from 'initStore'
+import initStore from 'init-store'
 
 class Error extends Component {
   static getInitialProps({res, err}) {

@@ -5,9 +5,9 @@ import thunk from 'redux-thunk'
 import Router from 'next/router'
 import MockAdapter from 'axios-mock-adapter'
 import LoginRequired from './login-required'
-import { SET_TOKEN } from '../constants'
+import { SET_TOKEN } from './constants'
 import axios from 'axios/index'
-import { API_BASE_URL } from '../../../config/base-url'
+import { API_BASE_URL } from '../../config/base-url'
 
 const mock = new MockAdapter(axios)
 const middlewares = [thunk]

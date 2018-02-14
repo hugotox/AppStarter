@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Layout from 'components/layout'
 import withRedux from 'next-redux-wrapper'
-import initStore from 'initStore'
-import loginRequired from 'components/auth/hoc/login-required'
-import withApollo from 'components/apollo/with-apollo'
+import initStore from 'init-store'
+import loginRequired from 'components/auth/login-required'
+import withApollo from 'components/with-apollo'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Loading from 'components/loading'
-import { PUBLIC } from 'config/user-types'
+import { PUBLIC } from 'components/auth/user-types'
 
 class ApolloPage extends Component {
   render () {

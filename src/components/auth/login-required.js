@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
-import { verifyToken } from '../actions'
-import { LOGOUT, SET_TOKEN } from '../constants'
-import { PUBLIC } from "../../../config/user-types"
+import { verifyToken } from './actions'
+import { LOGOUT, SET_TOKEN } from './constants'
+import { PUBLIC } from "./user-types"
 
 /**
  * Higher order component for Next.js `pages` components.

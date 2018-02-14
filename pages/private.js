@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import Layout from 'components/layout'
-import initStore from 'initStore'
-import loginRequired from 'components/auth/hoc/login-required'
+import initStore from 'init-store'
+import loginRequired from 'components/auth/login-required'
 
 class Private extends Component {
   render() {
