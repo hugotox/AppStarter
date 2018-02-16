@@ -12,7 +12,7 @@ import { PUBLIC } from "./user-types"
  * E.G.
  *
  * export default withRedux(initStore, mapStateToProps)(
- *   loginRequired(MyPage, [PUBLIC])
+ *   loginRequired([PUBLIC])(MyPage)
  * )
  *
  * It reads the "x-access-token" cookie and calls the API to verify the token if its the first server
@@ -21,11 +21,10 @@ import { PUBLIC } from "./user-types"
  * To make a page public you have to pass PUBLIC user type as an element of the `permissions` parameter.
  * This is required to be able to show current logged in information on the first server render.
  *
- * @param ChildComponent: React component to be wrapped. Must be a `page` component
  * @param permissions: array of user types required to render this page. Use PUBLIC to make the page public.
- * @returns {function(*)}
+ * @returns function(ChildComponent) React component to be wrapped. Must be a `page` component.
  */
-export default (ChildComponent, permissions = []) => {
+export default (permissions = []) => ChildComponent => {
   return class LoginRequired extends Component {
 
     static verificationOk(store, result, token) {

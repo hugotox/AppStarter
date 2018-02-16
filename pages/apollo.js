@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Layout from 'components/layout'
 import withRedux from 'next-redux-wrapper'
+import { compose } from 'redux'
 import initStore from 'init-store'
 import loginRequired from 'components/auth/login-required'
 import withApollo from 'components/with-apollo'
@@ -36,12 +37,10 @@ const fetchApolloData = gql`
 }
 `
 
-const ApolloPageWrapped = withApollo(
-  graphql(fetchApolloData)(ApolloPage)
-)
-
-export default withRedux(initStore, null)(
-  loginRequired(ApolloPageWrapped, [PUBLIC])
-)
-
+export default compose(
+  withRedux(initStore),
+  withApollo(),
+  loginRequired([PUBLIC]),
+  graphql(fetchApolloData),
+)(ApolloPage)
 

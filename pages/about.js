@@ -27,5 +27,5 @@ function mapStateToProps(state) {
 }
 
 export default withRedux(initStore, mapStateToProps)(
-  loginRequired(About, [PUBLIC])
+  loginRequired([PUBLIC])(About)
 )

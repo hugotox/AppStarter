@@ -48,7 +48,7 @@ function getComponentDisplayName(Component) {
 }
 
 // HOC
-export default ComposedComponent => {
+export default () => ComposedComponent => {
   return class WithApollo extends React.Component {
     static displayName = `WithApollo(${getComponentDisplayName(
       ComposedComponent
