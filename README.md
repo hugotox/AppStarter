@@ -31,6 +31,10 @@ UI Widgets
 - [x] Modal window
 
 
+#### Run with pm2:
+
+```$ pm2 start npm -- start --name app-starter```
+
 #### Run unit tests
 
 ```$ npm run test```
