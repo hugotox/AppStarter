@@ -7,7 +7,6 @@ import NavBar from '../navbar'
 import Drawer from '../drawer'
 import Footer from '../footer'
 import Loading from 'components/loading'
-import skeleton from './styles/skeleton.min.css'
 import globalStyles from 'global-styles'
 
 class Layout extends Component {
@@ -49,9 +48,6 @@ class Layout extends Component {
       <div>
         <Head>
           <title>{title}</title>
-          <meta name='viewport' content='initial-scale=1.0, width=device-width'/>
-          <script src="https://use.fontawesome.com/d599b86078.js"></script>
-          <style dangerouslySetInnerHTML={{__html: skeleton}}/>
         </Head>
 
         <NavBar/>

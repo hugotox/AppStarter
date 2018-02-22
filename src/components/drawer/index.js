@@ -87,7 +87,7 @@ class Drawer extends Component {
               top: 0;
               left: 0;
               bottom: 0;
-              transition: opacity 600ms cubic-bezier(0.075, 0.82, 0.165, 1);
+              transition: opacity 400ms cubic-bezier(0.075, 0.82, 0.165, 1);
             }
 
             .overlayOpen {
@@ -108,7 +108,7 @@ class Drawer extends Component {
               top: 0;
               left: -80%;
               padding: 20px;
-              transition: all 600ms cubic-bezier(0.075, 0.82, 0.165, 1);
+              transition: all 400ms cubic-bezier(0.075, 0.82, 0.165, 1);
             }
 
             .open {

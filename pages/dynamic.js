@@ -15,7 +15,7 @@ class Dynamic extends Component {
   render () {
     const id = this.props.url.query.id
     return (
-      <Layout>
+      <Layout title="Dynamic page demo">
         <div className="container">
           <h3>This is dynamic content #{id}</h3>
           <pre>{this.props.data}</pre>
