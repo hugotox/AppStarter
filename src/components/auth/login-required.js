@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { verifyToken } from './actions'
-import { LOGOUT, SET_TOKEN } from './constants'
+import { LOGOUT, SET_USER } from './constants'
 import { PUBLIC } from "./user-types"
 
 /**
@@ -29,8 +29,7 @@ export default (permissions = []) => ChildComponent => {
 
     static verificationOk(store, result, token) {
       store.dispatch({
-        type: SET_TOKEN,
-        token,
+        type: SET_USER,
         user: result.data.user
       })
     }
@@ -56,40 +55,40 @@ export default (permissions = []) => ChildComponent => {
     }
 
     static async getInitialProps(context) {
-      const {isServer, req, res, store} = context
+      const {isServer, req, store} = context
       // public page passes the permission PUBLIC to this function
       const isPublicPage = permissions.indexOf(PUBLIC) !== -1
       // get the token from the cookie
       const token = isServer ? req.cookies['x-access-token'] : Cookies.get('x-access-token')
-      // get the copy of the token saved in redux
-      const storeToken = store.getState().auth.token
+      // get user name from redux
+      const storeUser = store.getState().auth.user
       let result = null
 
-      if (!storeToken) {
+      if (!storeUser) {
         if (token) {
-          // if storeToken is null but I do have a cookie token, means this is the first server render so we need
+          // if storeUser is null but I do have a cookie token, means this is the first server render so we need
           // to verify this token
           result = await store.dispatch(verifyToken(token))
           if (result.status !== 200) {
             store.dispatch({type: LOGOUT})
-            Cookies.remove('x-access-token')
+            console.log('logging out due to expired token')
+            Cookies.remove('x-access-token') // TODO: remove cookie server side (this line runs on server so does not do anything)
           }
         } else {
           // no token means anon user
           store.dispatch({
-            type: SET_TOKEN,
-            token: 'anon',
+            type: SET_USER,
             user: null
           })
         }
       }
 
       // verify token always for protected pages (!isPublic)
-      if (!isPublicPage || !storeToken) {
-        if (!result) {
+      if (!isPublicPage || !storeUser) {
+        if (!result && token) {
           result = await store.dispatch(verifyToken(token))
         }
-        if (result.status === 200) {
+        if (result && result.status === 200) {
           // token is valid. Now verify the required permissions
           if (isPublicPage) {
             this.verificationOk(store, result, token)

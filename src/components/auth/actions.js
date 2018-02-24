@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
 import { API_BASE_URL } from '../../config/base-url'
-import { SET_TOKEN, LOGOUT } from './constants'
+import { SET_USER, LOGOUT } from './constants'
 
 export function login(payload, next) {
   return dispatch => {
@@ -10,8 +10,7 @@ export function login(payload, next) {
       .then(resp => {
         if (resp.status === 200) {
           dispatch({
-            type: SET_TOKEN,
-            token: resp.data.token,
+            type: SET_USER,
             user: resp.data.user,
           })
           Cookies.set('x-access-token', resp.data.token, {expires: payload.rememberMe ? 365 : undefined})

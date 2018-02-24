@@ -15,7 +15,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {token, user} = this.props
+    const {user} = this.props
     return (
       <div className="navbar-wrapper">
         <div className="container">
@@ -30,9 +30,9 @@ class NavBar extends Component {
                 <div className="link"><a>World</a></div>
               </div>
             </div>
-            {token && token !== 'anon' ?
+            {user ?
               <div className="links flex-row">
-                {user && user.first_name && <span className="link">Welcome {user.first_name} </span>}
+                {user.first_name && <span className="link">Welcome {user.first_name} </span>}
                 <span className="link" onClick={this.handleLogout}> Logout</span>
               </div>
               :
@@ -54,7 +54,6 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token,
     user: state.auth.user
   }
 }

@@ -6,7 +6,7 @@ import Router from 'next/router'
 
 import * as actions from './actions'
 import { API_BASE_URL } from "../../config/base-url"
-import { LOGOUT, SET_TOKEN } from './constants'
+import { LOGOUT, SET_USER } from './constants'
 
 const mock = new MockAdapter(axios)
 const middlewares = [thunk]
@@ -34,7 +34,7 @@ describe('Auth actions test', function () {
 
     const store = mockStore({})
     const expectedActions = [{
-      type: SET_TOKEN,
+      type: SET_USER,
       token: 'the-token',
       user: 'I am the user',
     }]

@@ -53,7 +53,7 @@ class Drawer extends Component {
 
   render() {
     const {open, closing} = this.state
-    const {token, user} = this.props
+    const {user} = this.props
     return (
       <div>
         <div className={'overlay ' + (open ? 'overlayOpen ' : ' ') + (closing ? 'overlayClosing' : '')}
@@ -65,7 +65,7 @@ class Drawer extends Component {
             <i className="fa fa-arrow-left u-pull-right" onClick={this.handleClose}></i>
             <h5>App Starter</h5>
             <div>
-              {token && token !== 'anon' ?
+              {user ?
                 <div>
                   <div>
                     {user && user.first_name && <span className="link">Welcome {user.first_name} </span>}
@@ -124,7 +124,6 @@ class Drawer extends Component {
 const mapStateToProps = state => {
   return {
     drawerOpen: state.drawer.drawerOpen,
-    token: state.auth.token,
     user: state.auth.user
   }
 }

@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import Router from 'next/router'
 import MockAdapter from 'axios-mock-adapter'
 import LoginRequired from './login-required'
-import { SET_TOKEN } from './constants'
+import { SET_USER } from './constants'
 import axios from 'axios/index'
 import { API_BASE_URL } from '../../config/base-url'
 
@@ -47,7 +47,7 @@ describe('LoginRequired test', function () {
     const DummyWrapped = LoginRequired()(DummyComp)
     const store = mockStore({})
     const expectedActions = [{
-      type: SET_TOKEN,
+      type: SET_USER,
       token: 'the-token',
       user: 'I am the user',
     }]
@@ -123,7 +123,7 @@ describe('LoginRequired test', function () {
       store: store
     }
     const expectedActions = [{
-      type: SET_TOKEN,
+      type: SET_USER,
       token: 'anon',
       user: null
     }]
@@ -158,7 +158,7 @@ describe('LoginRequired test', function () {
       store: store
     }
     const expectedActions = [{
-      type: SET_TOKEN,
+      type: SET_USER,
       token: 'the-token',
       user: {
         groups: ['STAFF']

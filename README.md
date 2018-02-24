@@ -21,10 +21,9 @@
 - [ ] Django graphql example (with authentication)
 - [ ] Socket.io example
 - [x] Unit tests setup
-- [x] E2E tests setup
 - [x] Make sure all components use propTypes
 - [x] Move login logic to Django
-- [ ] Client side form validation
+- [ ] Client side form validation (Formik)
 
 UI Widgets
 - [x] Responsive navbar
@@ -42,12 +41,3 @@ UI Widgets
 With coverage report
 
 ```$ npm run test -- --coverage```
-
-
-#### Run E2E tests
-
-```$ npm run nightwatch```
-
-In headless mode:
-
-```$ npm run nightwatch -- -e headless```
