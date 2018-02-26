@@ -1,19 +1,25 @@
-import React, { Component } from 'react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'init-store'
-import Layout from 'components/layout'
-import loginRequired from 'components/auth/login-required'
-import { fetchData } from "pages/dynamic/actions"
-import { PUBLIC } from "components/auth/user-types"
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
+import initStore from 'init-store';
+import Layout from 'components/layout';
+import loginRequired from 'components/auth/login-required';
+import { fetchData } from 'pages/dynamic/actions';
+import { PUBLIC } from 'components/auth/user-types';
 
 class Dynamic extends Component {
-  static async getInitialProps({query, store}) {
-    const {id} = query
-    await store.dispatch(fetchData(id))
+  static async getInitialProps({ query, store }) {
+    const { id } = query;
+    await store.dispatch(fetchData(id));
   }
 
-  render () {
-    const id = this.props.url.query.id
+  static propTypes = {
+    url: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired
+  }
+
+  render() {
+    const { id } = this.props.url.query;
     return (
       <Layout title="Dynamic page demo">
         <div className="container">
@@ -21,16 +27,14 @@ class Dynamic extends Component {
           <pre>{this.props.data}</pre>
         </div>
       </Layout>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    data: state.dynamic.data
-  }
-}
+const mapStateToProps = state => ({
+  data: state.dynamic.data
+});
 
 export default withRedux(initStore, mapStateToProps)(
   loginRequired([PUBLIC])(Dynamic)
-)
+);

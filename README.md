@@ -14,7 +14,7 @@
 - [x] Verify token based on user group
 - [x] Show logged in username in navbar
 - [x] User types
-- [x] Remember me feature
+- [ ] Remember me feature
 - [x] Route masking feature
 - [x] Django Rest example
 - [x] Django graphql example (using apollo)

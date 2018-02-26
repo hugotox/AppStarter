@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'init-store'
-import Layout from 'components/layout'
-import Modal from 'components/modal'
+import React, { Component } from 'react';
+import withRedux from 'next-redux-wrapper';
+import initStore from 'init-store';
+import Layout from 'components/layout';
+import Modal from 'components/modal';
 
 class UIExamples extends Component {
   state = {
     modalVisible: false
-  }
+  };
 
   toggleModal = () => {
-    this.setState({modalVisible: !this.state.modalVisible})
-  }
+    this.setState({ modalVisible: !this.state.modalVisible });
+  };
 
   render() {
     return (
@@ -23,7 +23,7 @@ class UIExamples extends Component {
             &nbsp;
             <button className="button-primary" onClick={this.toggleModal}>Open modal</button>
           </div>
-          <div className="box">I'm in a box</div>
+          <div className="box">I&apos;m in a box</div>
           <div>
             FA Test: <i className="fa fa-lock"></i>
           </div>
@@ -32,8 +32,8 @@ class UIExamples extends Component {
           hello
         </Modal>
       </Layout>
-    )
+    );
   }
 }
 
-export default withRedux(initStore)(UIExamples)
+export default withRedux(initStore)(UIExamples);

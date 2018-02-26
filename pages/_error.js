@@ -1,12 +1,21 @@
-import React, { Component } from 'react'
-import withRedux from 'next-redux-wrapper'
-import Layout from 'components/layout'
-import initStore from 'init-store'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
+import Layout from 'components/layout';
+import initStore from 'init-store';
 
 class Error extends Component {
-  static getInitialProps({res, err}) {
+  static getInitialProps({ res, err }) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : null;
-    return {statusCode}
+    return { statusCode };
+  }
+
+  static propTypes = {
+    statusCode: PropTypes.number
+  }
+
+  static defaultProps = {
+    statusCode: null
   }
 
   render() {
@@ -18,8 +27,8 @@ class Error extends Component {
             : 'An error occurred on client'}
         </div>
       </Layout>
-    )
+    );
   }
 }
 
-export default withRedux(initStore)(Error)
+export default withRedux(initStore)(Error);
