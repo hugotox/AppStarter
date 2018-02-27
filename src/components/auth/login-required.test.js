@@ -47,7 +47,6 @@ describe('LoginRequired test', () => {
     const store = mockStore({});
     const expectedActions = [{
       type: SET_USER,
-      token: 'the-token',
       user: 'I am the user',
     }];
 
@@ -123,7 +122,6 @@ describe('LoginRequired test', () => {
     };
     const expectedActions = [{
       type: SET_USER,
-      token: 'anon',
       user: null
     }];
     mock.onPost(`${API_BASE_URL}/verify-token`)
@@ -158,7 +156,6 @@ describe('LoginRequired test', () => {
     };
     const expectedActions = [{
       type: SET_USER,
-      token: 'the-token',
       user: {
         groups: ['STAFF']
       }

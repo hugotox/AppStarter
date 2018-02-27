@@ -33,7 +33,6 @@ describe('Auth actions test', () => {
     const store = mockStore({});
     const expectedActions = [{
       type: SET_USER,
-      token: 'the-token',
       user: 'I am the user',
     }];
 
