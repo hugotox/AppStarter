@@ -1,11 +1,10 @@
-require('dotenv').config()
-const path = require('path')
-const glob = require('glob')
-const webpack = require('webpack')
+require('dotenv').config();
+const path = require('path');
+const glob = require('glob');
+const webpack = require('webpack');
 
 module.exports = {
-  webpack: (config, {dev}) => {
-
+  webpack: (config, { dev }) => {
     // override devtool if you want
     // if(dev) {
     //   config.devtool = 'cheap-eval-source-map'
@@ -37,15 +36,15 @@ module.exports = {
           }
         ]
       }
-    )
+    );
 
     const env = Object.keys(process.env).reduce((acc, curr) => {
       acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
-      return acc
-    }, {})
+      return acc;
+    }, {});
 
-    config.plugins.push(new webpack.DefinePlugin(env))
+    config.plugins.push(new webpack.DefinePlugin(env));
 
-    return config
+    return config;
   }
-}
+};
