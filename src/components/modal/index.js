@@ -1,34 +1,35 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import theme from '../../config/theme'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import theme from '../../config/theme';
 
 class Modal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node
-  }
+  };
 
   static defaultProps = {
-    visible: false
-  }
+    visible: false,
+    children: null
+  };
 
-  componentWillReceiveProps (nextProps) {
-    if(!this.props.visible && nextProps.visible) {
-      document.body.style.overflow = 'hidden'
-      document.body.style.height = '100vh'
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.visible && nextProps.visible) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
     } else {
-      document.body.style.overflow = ''
-      document.body.style.height = ''
+      document.body.style.overflow = '';
+      document.body.style.height = '';
     }
   }
 
   contentClick = e => {
-    e.stopPropagation()
-  }
+    e.stopPropagation();
+  };
 
   render() {
-    const {visible, children, onClose} = this.props
+    const { visible, children, onClose } = this.props;
     return (
       <div className={visible ? 'modal-wrapper visible' : 'modal-wrapper'} onClick={onClose}>
         <div className="modal" onClick={this.contentClick}>
@@ -37,8 +38,8 @@ class Modal extends Component {
           </div>
           {children}
         </div>
-        <style jsx>{/*language=CSS*/
-            `
+        <style jsx>{/* language=CSS */
+          `
             .modal-wrapper {
               position: fixed;
               left: 0;
@@ -73,10 +74,11 @@ class Modal extends Component {
               cursor: pointer;
             }
           `
-        }</style>
+        }
+        </style>
       </div>
-    )
+    );
   }
 }
 
-export default Modal
+export default Modal;

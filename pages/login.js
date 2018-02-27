@@ -54,7 +54,12 @@ class Login extends Component {
             </div>
             <div>
               <label>
-                <input type="checkbox" className="checkbox" checked={this.state.rememberMe} onChange={this.toggleRememberMe} />
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={this.state.rememberMe}
+                  onChange={this.toggleRememberMe}
+                />
                 Remember me
               </label>
             </div>

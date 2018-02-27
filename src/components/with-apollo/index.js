@@ -1,18 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { ApolloProvider, getDataFromTree } from 'react-apollo'
-import Head from 'next/head'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import fetch from 'isomorphic-unfetch'
-import { API_BASE_URL } from 'config/base-url'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ApolloProvider, getDataFromTree } from 'react-apollo';
+import Head from 'next/head';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import fetch from 'isomorphic-unfetch';
+import { API_BASE_URL } from 'config/base-url';
 
-let apolloClient = null
+let apolloClient = null;
 
 // Polyfill fetch() on the server (used by apollo-client)
 if (!process.browser) {
-  global.fetch = fetch
+  global.fetch = fetch;
 }
 
 function create(initialState) {
@@ -24,107 +24,105 @@ function create(initialState) {
       credentials: 'same-origin' // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache().restore(initialState || {})
-  })
+  });
 }
 
 function initApollo(initialState) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {
-    return create(initialState)
+    return create(initialState);
   }
 
   // Reuse client on the client-side
   if (!apolloClient) {
-    apolloClient = create(initialState)
+    apolloClient = create(initialState);
   }
 
-  return apolloClient
+  return apolloClient;
 }
 
 // Gets the display name of a JSX component for dev tools
 function getComponentDisplayName(Component) {
-  return Component.displayName || Component.name || 'Unknown'
+  return Component.displayName || Component.name || 'Unknown';
 }
 
 // HOC
-export default () => ComposedComponent => {
-  return class WithApollo extends React.Component {
-    static displayName = `WithApollo(${getComponentDisplayName(
-      ComposedComponent
-    )})`
+export default () => ComposedComponent => class WithApollo extends React.Component {
+  static displayName = `WithApollo(${getComponentDisplayName(
+    ComposedComponent
+  )})`;
 
-    static propTypes = {
-      serverState: PropTypes.object.isRequired
+  static propTypes = {
+    serverState: PropTypes.object.isRequired
+  };
+
+  static async getInitialProps(ctx) {
+    // Initial serverState with apollo (empty)
+    let serverState = {
+      apollo: {
+        data: {}
+      }
+    };
+
+    // Evaluate the composed component's getInitialProps()
+    let composedInitialProps = {};
+    if (ComposedComponent.getInitialProps) {
+      composedInitialProps = await ComposedComponent.getInitialProps(ctx);
     }
 
-    static async getInitialProps(ctx) {
-      // Initial serverState with apollo (empty)
-      let serverState = {
-        apollo: {
-          data: {}
-        }
-      }
+    // Run all GraphQL queries in the component tree
+    // and extract the resulting data
+    if (!process.browser) {
+      const apollo = initApollo();
 
-      // Evaluate the composed component's getInitialProps()
-      let composedInitialProps = {}
-      if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(ctx)
-      }
-
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
-      if (!process.browser) {
-        const apollo = initApollo()
-
-        try {
-          // Run all GraphQL queries
-          await getDataFromTree(
-            <ApolloProvider client={apollo}>
-              <ComposedComponent {...composedInitialProps} />
-            </ApolloProvider>,
-            {
-              router: {
-                asPath: ctx.asPath,
-                pathname: ctx.pathname,
-                query: ctx.query
-              }
+      try {
+        // Run all GraphQL queries
+        await getDataFromTree(
+          <ApolloProvider client={apollo}>
+            <ComposedComponent {...composedInitialProps} />
+          </ApolloProvider>,
+          {
+            router: {
+              asPath: ctx.asPath,
+              pathname: ctx.pathname,
+              query: ctx.query
             }
-          )
-        } catch (error) {
-          // Prevent Apollo Client GraphQL errors from crashing SSR.
-          // Handle them in components via the data.error prop:
-          // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-        }
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
-        Head.rewind()
-
-        // Extract query data from the Apollo store
-        serverState = {
-          apollo: {
-            data: apollo.cache.extract()
           }
+        );
+      } catch (error) {
+        // Prevent Apollo Client GraphQL errors from crashing SSR.
+        // Handle them in components via the data.error prop:
+        // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
+      }
+      // getDataFromTree does not call componentWillUnmount
+      // head side effect therefore need to be cleared manually
+      Head.rewind();
+
+      // Extract query data from the Apollo store
+      serverState = {
+        apollo: {
+          data: apollo.cache.extract()
         }
-      }
-
-      return {
-        serverState,
-        ...composedInitialProps
-      }
+      };
     }
 
-    constructor(props) {
-      super(props)
-      this.apollo = initApollo(this.props.serverState.apollo.data)
-    }
-
-    render() {
-      return (
-        <ApolloProvider client={this.apollo}>
-          <ComposedComponent {...this.props} />
-        </ApolloProvider>
-      )
-    }
+    return {
+      serverState,
+      ...composedInitialProps
+    };
   }
-}
+
+  constructor(props) {
+    super(props);
+    this.apollo = initApollo(this.props.serverState.apollo.data);
+  }
+
+  render() {
+    return (
+      <ApolloProvider client={this.apollo}>
+        <ComposedComponent {...this.props} />
+      </ApolloProvider>
+    );
+  }
+};

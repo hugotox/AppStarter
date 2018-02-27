@@ -6,7 +6,8 @@
     "dev": "NODE_PATH=src node server/index.js",
     "build": "NODE_PATH=src next build",
     "start": "NODE_ENV=production node server/index.js",
-    "test": "jest"
+    "test": "jest",
+    "eslint": "eslint src pages server"
   },
   "author": "Hugo Pineda",
   "jest": {

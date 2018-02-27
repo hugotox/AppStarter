@@ -1,9 +1,8 @@
-import css from 'styled-jsx/css'
-import theme from 'config/theme'
+import css from 'styled-jsx/css';
+import theme from 'config/theme';
 
-export default css
 // language=CSS
-`
+export default css`
   body {
     font-size: ${theme.font.size};
     font-family: ${theme.font.family};
@@ -92,4 +91,4 @@ export default css
     border-color: ${theme.colors.primaryHover};
   }
   
-`
+`;

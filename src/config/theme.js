@@ -31,4 +31,4 @@ export default {
     link: '#1EAEDB',
     linkHover: '#0FA0CE',
   }
-}
+};

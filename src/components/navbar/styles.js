@@ -1,11 +1,10 @@
-import css from 'styled-jsx/css'
-import theme from '../../config/theme'
+import css from 'styled-jsx/css';
+import theme from '../../config/theme';
 
-const navbarHeight = '50px'
+const navbarHeight = '50px';
 
-export default css
-  // language=CSS
-  `
+// language=CSS
+export default css`
   .navbar-wrapper {
     background-color: ${theme.colors.black};
     color: white;
@@ -75,4 +74,4 @@ export default css
       flex-direction: column;
     }
   }
-  `
+  `;

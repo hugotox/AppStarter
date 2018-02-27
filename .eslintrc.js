@@ -10,7 +10,13 @@ module.exports = {
   'rules': {
     'max-len': ["error", { "code": 120 }],
     'no-plusplus': 0,
+    'no-console': 0,
+    'import/prefer-default-export': 0,
+    'no-underscore-dangle': 0,
     'object-curly-newline': 0,
+    'prefer-template': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
     'react/jsx-filename-extension': 0,
     'react/self-closing-comp': 0,
     'react/forbid-prop-types': 0,

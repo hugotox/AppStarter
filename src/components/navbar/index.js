@@ -1,21 +1,31 @@
-import React, { Component } from 'react'
-import Link from 'next/link'
-import { connect } from 'react-redux'
-import { logout } from "../auth/actions"
-import styles from './styles'
-import { openDrawer } from '../drawer/actions'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { connect } from 'react-redux';
+import { logout } from '../auth/actions';
+import styles from './styles';
+import { openDrawer } from '../drawer/actions';
 
 class NavBar extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    user: PropTypes.object
+  };
+
+  static defaultProps = {
+    user: null
+  };
+
   handleLogout = () => {
-    this.props.dispatch(logout())
-  }
+    this.props.dispatch(logout());
+  };
 
   handleOpenDrawer = () => {
-    this.props.dispatch(openDrawer())
-  }
+    this.props.dispatch(openDrawer());
+  };
 
   render() {
-    const {user} = this.props
+    const { user } = this.props;
     return (
       <div className="navbar-wrapper">
         <div className="container">
@@ -48,14 +58,12 @@ class NavBar extends Component {
 
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.auth.user
-  }
-}
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
 
-export default connect(mapStateToProps)(NavBar)
+export default connect(mapStateToProps)(NavBar);

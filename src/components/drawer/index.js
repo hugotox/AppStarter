@@ -1,63 +1,71 @@
-import React, { Component } from 'react'
-import Router from 'next/router'
-import { connect } from 'react-redux'
-import { closeDrawer } from './actions'
-import { logout } from '../auth/actions'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Router from 'next/router';
+import { connect } from 'react-redux';
+import { closeDrawer } from './actions';
+import { logout } from '../auth/actions';
 
 class Drawer extends Component {
+  static propTypes = {
+    drawerOpen: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       open: props.drawerOpen,
       closing: false
-    }
+    };
   }
 
-  componentDidMount () {
-    this._mounted = true
-  }
-
-  componentWillUnmount () {
-    this._mounted = false
+  componentDidMount() {
+    this._mounted = true;
   }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.drawerOpen && nextProps.drawerOpen) {
-      this.setState({open: true, closing: false})
+      this.setState({ open: true, closing: false });
     } else if (this.props.drawerOpen && !nextProps.drawerOpen) {
-      this.setState({closing: true})
+      this.setState({ closing: true });
       setTimeout(() => {
-        if(this._mounted) {
-          this.setState({open: false, closing: false})
+        if (this._mounted) {
+          this.setState({ open: false, closing: false });
         }
-      }, 600)
+      }, 600);
     }
   }
 
-  handleClose = () => {
-    this.props.dispatch(closeDrawer())
+  componentWillUnmount() {
+    this._mounted = false;
   }
+
+  handleClose = () => {
+    this.props.dispatch(closeDrawer());
+  };
 
   handleLogout = () => {
-    this.props.dispatch(logout())
-    this.handleClose()
-  }
+    this.props.dispatch(logout());
+    this.handleClose();
+  };
 
   gotoLogin = () => {
-    this.handleClose()
+    this.handleClose();
     // little trick to not close the drawer instantly when routing to /login
     setTimeout(() => {
-      Router.push('/login')
-    }, 300)
-  }
+      Router.push('/login');
+    }, 300);
+  };
 
   render() {
-    const {open, closing} = this.state
-    const {user} = this.props
+    const { open, closing } = this.state;
+    const { user } = this.props;
     return (
       <div>
-        <div className={'overlay ' + (open ? 'overlayOpen ' : ' ') + (closing ? 'overlayClosing' : '')}
-             onClick={this.handleClose}
+        <div
+          className={'overlay ' + (open ? 'overlayOpen ' : ' ') + (closing ? 'overlayClosing' : '')}
+          onClick={this.handleClose}
         >
         </div>
         <div className={'drawer ' + (open && !closing ? 'open ' : ' ')}>
@@ -78,7 +86,7 @@ class Drawer extends Component {
             </div>
           </div>
         </div>
-        <style jsx>{//language=CSS
+        <style jsx>{ // language=CSS
             `
             .overlay {
               position: fixed;
@@ -115,17 +123,16 @@ class Drawer extends Component {
               left: 0;
             }
           `
-        }</style>
+        }
+        </style>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    drawerOpen: state.drawer.drawerOpen,
-    user: state.auth.user
-  }
-}
+const mapStateToProps = state => ({
+  drawerOpen: state.drawer.drawerOpen,
+  user: state.auth.user
+});
 
-export default connect(mapStateToProps)(Drawer)
+export default connect(mapStateToProps)(Drawer);
