@@ -45,7 +45,7 @@ describe('LoginRequired test', () => {
   it('Defines a `userHasPermission` static function (no permission required)', () => {
     const DummyWrapped = LoginRequired()(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
-    let hasPerm = DummyWrapped.userHasPermission({
+    const hasPerm = DummyWrapped.userHasPermission({
       user: {
         groups: []
       }
@@ -56,7 +56,7 @@ describe('LoginRequired test', () => {
   it('Defines a `userHasPermission` static function (permission failed)', () => {
     const DummyWrapped = LoginRequired([1])(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
-    let hasPerm = DummyWrapped.userHasPermission({
+    const hasPerm = DummyWrapped.userHasPermission({
       groups: [2]
     });
     expect(hasPerm).toBe(false);
@@ -65,7 +65,7 @@ describe('LoginRequired test', () => {
   it('Defines a `userHasPermission` static function (permission success)', () => {
     const DummyWrapped = LoginRequired([1])(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
-    let hasPerm = DummyWrapped.userHasPermission({
+    const hasPerm = DummyWrapped.userHasPermission({
       groups: [1]
     });
     expect(hasPerm).toBe(true);

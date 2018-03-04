@@ -37,7 +37,7 @@ export function whoAmI(cookie) {
     withCredentials: true
   })
     .then(response => {
-      let user = null
+      let user = null;
       if (response.status === 200) {
         user = response.data.user;
         dispatch({
@@ -45,7 +45,7 @@ export function whoAmI(cookie) {
           user
         });
       }
-      return user
+      return user;
     })
     .catch(err => err);
 }

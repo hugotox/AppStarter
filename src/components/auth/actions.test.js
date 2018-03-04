@@ -78,7 +78,7 @@ describe('Auth actions test', () => {
     }];
     store.dispatch(actions.logout())
       .then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
+        expect(store.getActions()).toEqual(expectedActions);
       });
   });
 });

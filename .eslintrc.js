@@ -11,6 +11,8 @@ module.exports = {
     'max-len': ["error", { "code": 120 }],
     'no-plusplus': 0,
     'no-console': 0,
+    'padded-blocks': 0,
+    'no-lonely-if': 0,
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
     'object-curly-newline': 0,
