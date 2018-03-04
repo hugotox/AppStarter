@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
+import { getComponentDisplayName } from '../../utils/hoc';
 import { whoAmI } from './actions';
 import { PUBLIC } from './user-types';
 
@@ -22,6 +23,10 @@ import { PUBLIC } from './user-types';
  * @returns function(ChildComponent) React component to be wrapped. Must be a `page` component.
  */
 export default (permissions = []) => ChildComponent => class LoginRequired extends Component {
+  static displayName = `LoginRequired(${getComponentDisplayName(
+    ChildComponent
+  )})`;
+
   static redirectToLogin(context) {
     const { isServer, req, res } = context;
     if (isServer) {
@@ -63,7 +68,7 @@ export default (permissions = []) => ChildComponent => class LoginRequired exten
   static async getInitialProps(context) {
     // public page passes the permission `PUBLIC` to this function
     const isPublicPage = permissions.indexOf(PUBLIC) !== -1;
-    const { isServer, store, req, res } = context;
+    const { isServer, store, req } = context;
     let user = null;
 
     if (isServer) {

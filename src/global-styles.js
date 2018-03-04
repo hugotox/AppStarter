@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import theme from 'config/theme';
+import theme from 'utils/theme';
 
 // language=CSS
 export default css`

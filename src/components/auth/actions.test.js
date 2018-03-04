@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import Router from 'next/router';
 
 import * as actions from './actions';
-import { API_BASE_URL } from '../../config/base-url';
+import { API_BASE_URL } from '../../utils/base-url';
 import { LOGOUT, SET_USER } from './constants';
 
 const mock = new MockAdapter(axios);

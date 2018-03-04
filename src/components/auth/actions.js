@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Router from 'next/router';
-import { API_BASE_URL } from '../../config/base-url';
+import { API_BASE_URL } from '../../utils/base-url';
 import { SET_USER, LOGOUT } from './constants';
 
 export function login(payload, next) {

@@ -6,7 +6,8 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'isomorphic-unfetch';
-import { API_BASE_URL } from 'config/base-url';
+import { API_BASE_URL } from 'utils/base-url';
+import { getComponentDisplayName } from '../../utils/hoc';
 
 let apolloClient = null;
 
@@ -40,11 +41,6 @@ function initApollo(initialState) {
   }
 
   return apolloClient;
-}
-
-// Gets the display name of a JSX component for dev tools
-function getComponentDisplayName(Component) {
-  return Component.displayName || Component.name || 'Unknown';
 }
 
 // HOC

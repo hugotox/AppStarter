@@ -7,7 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios/index';
 import LoginRequired from './login-required';
 import { SET_USER } from './constants';
-import { API_BASE_URL } from '../../config/base-url';
+import { API_BASE_URL } from '../../utils/base-url';
 
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];

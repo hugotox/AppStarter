@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL } from 'config/base-url';
+import { API_BASE_URL } from 'utils/base-url';
 import * as constants from './constants';
 
 export function fetchData(id) {
