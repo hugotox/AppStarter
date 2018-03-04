@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import Cookies from 'js-cookie';
-import { verifyToken } from './actions';
+import { verifyToken, whoAmI } from './actions';
 import { LOGOUT, SET_USER } from './constants';
 import { PUBLIC } from './user-types';
 
@@ -25,13 +24,6 @@ import { PUBLIC } from './user-types';
  * @returns function(ChildComponent) React component to be wrapped. Must be a `page` component.
  */
 export default (permissions = []) => ChildComponent => class LoginRequired extends Component {
-  static verificationOk(store, result) {
-    store.dispatch({
-      type: SET_USER,
-      user: result.data.user
-    });
-  }
-
   static redirectToLogin(context) {
     const { isServer, req, res } = context;
     if (isServer) {
@@ -52,69 +44,50 @@ export default (permissions = []) => ChildComponent => class LoginRequired exten
     }
   }
 
-  static async getInitialProps(context) {
-    const { isServer, req, store } = context;
-    // public page passes the permission PUBLIC to this function
-    const isPublicPage = permissions.indexOf(PUBLIC) !== -1;
-    // get the token from the cookie
-    const token = isServer ? req.cookies['x-access-token'] : Cookies.get('x-access-token');
-    // get user name from redux
-    const storeUser = store.getState().auth.user;
-    let result = null;
-
-    if (!storeUser) {
-      if (token) {
-        // if storeUser is null but I do have a cookie token, means this is the first server render so we need
-        // to verify this token
-        result = await store.dispatch(verifyToken(token));
-        if (result.status !== 200) {
-          store.dispatch({ type: LOGOUT });
-          // TODO: remove cookie server side (this line runs on server so does not do anything)
-          Cookies.remove('x-access-token');
+  static userHasPermission(user) {
+    const userGroups = user.groups;
+    let userHasPerm = true;
+    // go here only if we have specific permission requirements
+    if (permissions.length > 0) {
+      userHasPerm = false; // will let him pass if he has at least one permission
+      for (let i = 0, l = permissions.length; i < l; i++) {
+        for (let j = 0, k = userGroups.length; j < k; j++) {
+          if (userGroups[j] === permissions[i]) {
+            userHasPerm = true;
+            break;
+          }
         }
-      } else {
-        // no token means anon user
-        store.dispatch({
-          type: SET_USER,
-          user: null
-        });
       }
     }
+    return userHasPerm;
+  }
 
-    // verify token always for protected pages (!isPublic)
-    if (!isPublicPage || !storeUser) {
-      if (!result && token) {
-        result = await store.dispatch(verifyToken(token));
-      }
-      if (result && result.status === 200) {
-        // token is valid. Now verify the required permissions
-        if (isPublicPage) {
-          this.verificationOk(store, result);
-        } else {
-          const userGroups = result.data.user.groups;
-          let auth = true;
-          // go here only if we have specific permission requirements
-          if (permissions.length > 0) {
-            auth = false; // will let him pass if he has at least one permission
-            for (let i = 0, l = permissions.length; i < l; i++) {
-              for (let j = 0, k = userGroups.length; j < k; j++) {
-                if (userGroups[j] === permissions[i]) {
-                  auth = true;
-                  break;
-                }
-              }
-            }
-          }
-          if (auth) {
-            this.verificationOk(store, result);
-          } else {
-            // since user is already logged in (token is valid) but he doesn't meet the
-            // required permission, we just show a 404
-            this.redirectTo404(context);
-          }
+  static async getInitialProps(context) {
+    // public page passes the permission `PUBLIC` to this function
+    const isPublicPage = permissions.indexOf(PUBLIC) !== -1;
+    const { isServer, store, req, res } = context;
+    let user = null;
+
+    if (isServer) {
+      // happens on page first load
+      const { cookie } = req.headers;
+      user = await store.dispatch(whoAmI(cookie));
+
+    } else {
+      // happens on client side navigation
+      user = store.getState().auth.user;
+    }
+
+    if (user) {
+      // mean user is logged in
+      if (!isPublicPage) {
+        if (!this.userHasPermission(user)) {
+          this.redirectTo404(context);
         }
-      } else if (!isPublicPage) {
-        // token expired
+      }
+    } else {
+      // anonymous user
+      if (!isPublicPage) {
         this.redirectToLogin(context);
       }
     }

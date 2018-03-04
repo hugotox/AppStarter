@@ -1,18 +1,16 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import Router from 'next/router';
 import { API_BASE_URL } from '../../config/base-url';
 import { SET_USER, LOGOUT } from './constants';
 
 export function login(payload, next) {
-  return (dispatch) => axios.post(`${API_BASE_URL}/obtain-token`, payload)
+  return (dispatch) => axios.post(`${API_BASE_URL}/login`, payload)
     .then((resp) => {
       if (resp.status === 200) {
         dispatch({
           type: SET_USER,
           user: resp.data.user,
         });
-        Cookies.set('x-access-token', resp.data.token, { expires: payload.rememberMe ? 365 : undefined });
         Router.push(next);
       }
     })
@@ -20,15 +18,35 @@ export function login(payload, next) {
 }
 
 export function logout() {
-  return (dispatch) => {
-    dispatch({ type: LOGOUT });
-    Cookies.remove('x-access-token');
-    Router.push('/');
-  };
+  return (dispatch) => axios.get(`${API_BASE_URL}/logout`)
+    .then((resp) => {
+      if (resp.status === 200) {
+        dispatch({ type: LOGOUT });
+        Router.push('/');
+      }
+    })
+    .catch(err => err);
 }
 
-export function verifyToken(token) {
-  return () => axios.post(`${API_BASE_URL}/verify-token`, { token })
-    .then(result => result)
+
+export function whoAmI(cookie) {
+  return (dispatch) => axios.get(`${API_BASE_URL}/whoami`, {
+    headers: {
+      Accept: 'application/json',
+      Cookie: cookie
+    },
+    withCredentials: true
+  })
+    .then(response => {
+      let user = null
+      if (response.status === 200) {
+        user = response.data.user;
+        dispatch({
+          type: SET_USER,
+          user
+        });
+      }
+      return user
+    })
     .catch(err => err);
 }

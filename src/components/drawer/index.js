@@ -8,9 +8,13 @@ import { logout } from '../auth/actions';
 class Drawer extends Component {
   static propTypes = {
     drawerOpen: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    user: null
+  }
 
   constructor(props) {
     super(props);
