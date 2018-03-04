@@ -21,7 +21,14 @@ const ApolloPage = (props) => {
           <Loading />
           :
           <code>
-            <pre>{JSON.stringify(data)}</pre>
+            {data.allOwners.map(owner => (
+              <div key={owner.id}>
+                {owner.name}: &nbsp;
+                {owner.petSet.map(pet => (
+                  <span key={pet.id}>{pet.name} </span>
+                ))}
+              </div>
+            ))}
           </code>
         }
       </div>
