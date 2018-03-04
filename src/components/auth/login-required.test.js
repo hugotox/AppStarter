@@ -42,17 +42,33 @@ describe('LoginRequired test', () => {
     expect(typeof DummyWrapped.getInitialProps).toBe('function');
   });
 
-  it('Defines a `verificationOk` static function to dispatch SET_TOKEN action', () => {
+  it('Defines a `userHasPermission` static function (no permission required)', () => {
     const DummyWrapped = LoginRequired()(DummyComp);
-    const store = mockStore({});
-    const expectedActions = [{
-      type: SET_USER,
-      user: 'I am the user',
-    }];
+    expect(typeof DummyWrapped.userHasPermission).toBe('function');
+    let hasPerm = DummyWrapped.userHasPermission({
+      user: {
+        groups: []
+      }
+    });
+    expect(hasPerm).toBe(true);
+  });
 
-    expect(typeof DummyWrapped.verificationOk).toBe('function');
-    DummyWrapped.verificationOk(store, { data: { user: 'I am the user' } }, 'the-token');
-    expect(store.getActions()).toEqual(expectedActions);
+  it('Defines a `userHasPermission` static function (permission failed)', () => {
+    const DummyWrapped = LoginRequired([1])(DummyComp);
+    expect(typeof DummyWrapped.userHasPermission).toBe('function');
+    let hasPerm = DummyWrapped.userHasPermission({
+      groups: [2]
+    });
+    expect(hasPerm).toBe(false);
+  });
+
+  it('Defines a `userHasPermission` static function (permission success)', () => {
+    const DummyWrapped = LoginRequired([1])(DummyComp);
+    expect(typeof DummyWrapped.userHasPermission).toBe('function');
+    let hasPerm = DummyWrapped.userHasPermission({
+      groups: [1]
+    });
+    expect(hasPerm).toBe(true);
   });
 
   it('should define a `redirectToLogin` static function', () => {
@@ -105,38 +121,6 @@ describe('LoginRequired test', () => {
     context.isServer = false;
     DummyWrapped.redirectTo404(context);
     expect(Router.router.push).toHaveBeenCalledWith('/notfound');
-  });
-
-  it('should define a getInitialProps static function: no store token', () => {
-    const store = mockStore({
-      auth: {
-        token: null
-      }
-    });
-    const context = {
-      isServer: true,
-      req: {
-        cookies: {}
-      },
-      store
-    };
-    const expectedActions = [{
-      type: SET_USER,
-      user: null
-    }];
-    mock.onPost(`${API_BASE_URL}/verify-token`)
-      .reply(200, {
-        user: {
-          groups: []
-        }
-      });
-
-    const DummyWrapped = LoginRequired()(DummyComp);
-    expect(typeof DummyWrapped.getInitialProps).toBe('function');
-
-    DummyWrapped.getInitialProps(context);
-
-    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('should define a getInitialProps static function: require permissions', () => {

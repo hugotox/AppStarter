@@ -17,16 +17,14 @@ Router.router = {
   prefetch: jest.fn()
 };
 
-
 describe('Auth actions test', () => {
   afterEach(() => {
     mock.reset();
   });
 
-  it('login: should call the login API with the payload and dispatch SET_TOKEN action', () => {
-    mock.onPost(`${API_BASE_URL}/obtain-token`)
+  it('login: should call the login API with the payload and dispatch SET_USER action', () => {
+    mock.onPost(`${API_BASE_URL}/login`)
       .reply(200, {
-        token: 'the-token',
         user: 'I am the user'
       });
 
@@ -47,22 +45,40 @@ describe('Auth actions test', () => {
       });
   });
 
+  it('login: should call the whoami API and dispatch SET_USER action', () => {
+    mock.onGet(`${API_BASE_URL}/whoami`)
+      .reply(200, {
+        user: 'I am the user'
+      });
+
+    const store = mockStore({});
+    const expectedActions = [{
+      type: SET_USER,
+      user: 'I am the user',
+    }];
+
+    const payload = {
+      username: 'user',
+      password: 'pass'
+    };
+
+    return store.dispatch(actions.whoAmI(payload, '/'))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
   it('logout: should dispatch the LOGOUT action', () => {
+    mock.onGet(`${API_BASE_URL}/logout`)
+      .reply(200);
+
     const store = mockStore({});
     const expectedActions = [{
       type: LOGOUT
     }];
-    store.dispatch(actions.logout());
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('verifyToken: should call the verify token API', () => {
-    mock.onPost(`${API_BASE_URL}/verify-token`)
-      .reply(200);
-    const store = mockStore({});
-    store.dispatch(actions.verifyToken('123token'))
-      .then(res => {
-        expect(res.status).toEqual(200);
+    store.dispatch(actions.logout())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
       });
   });
 });

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Router, { withRouter } from 'next/router';
 import Loading from 'components/loading';
+import 'components/skeleton/skeleton.min.css';
 import globalStyles from 'global-styles';
 import NavBar from '../navbar';
 import Drawer from '../drawer';

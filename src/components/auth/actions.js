@@ -28,7 +28,6 @@ export function logout() {
     .catch(err => err);
 }
 
-
 export function whoAmI(cookie) {
   return (dispatch) => axios.get(`${API_BASE_URL}/whoami`, {
     headers: {

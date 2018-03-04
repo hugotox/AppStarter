@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import { verifyToken, whoAmI } from './actions';
-import { LOGOUT, SET_USER } from './constants';
+import { whoAmI } from './actions';
 import { PUBLIC } from './user-types';
 
 /**
@@ -14,8 +13,7 @@ import { PUBLIC } from './user-types';
  *   loginRequired([PUBLIC])(MyPage)
  * )
  *
- * It reads the "x-access-token" cookie and calls the API to verify the token if its the first server
- * render or if it's a page that requires permissions.
+ * It reads the user from the redux store or calls whoami API to verify current logged in user.
  *
  * To make a page public you have to pass PUBLIC user type as an element of the `permissions` parameter.
  * This is required to be able to show current logged in information on the first server render.

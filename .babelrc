@@ -1,20 +1,11 @@
 {
-  "plugins": [
-    "transform-runtime"
-  ],
   "presets": [
     "next/babel"
   ],
-  "ignore": [],
   "env": {
     "test": {
-      "presets": [
-        [
-          "env",
-          {
-            "modules": "commonjs"
-          }
-        ]
+      "plugins": [
+        "transform-es2015-modules-commonjs"
       ]
     }
   }

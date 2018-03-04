@@ -1,7 +1,6 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
-import skeleton from '../src/components/skeleton/skeleton.min.css';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -16,7 +15,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <script src="https://use.fontawesome.com/d599b86078.js"></script>
-          <style dangerouslySetInnerHTML={{ __html: skeleton }} />
+          <link rel="stylesheet" href="/_next/static/style.css" />
         </Head>
         <body>
           <Main />
