@@ -5,7 +5,7 @@ import initStore from 'init-store';
 import Layout from 'components/layout';
 import { login } from 'components/auth/actions';
 import loginRequired from 'components/auth/login-required';
-import { PUBLIC } from 'components/auth/user-types';
+import { PUBLIC } from 'components/auth/user-groups';
 
 class Login extends Component {
   static propTypes = {

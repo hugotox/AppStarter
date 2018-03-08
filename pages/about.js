@@ -5,7 +5,7 @@ import initStore from 'init-store';
 import Layout from 'components/layout';
 import { fetchData } from 'pages/index/actions';
 import loginRequired from 'components/auth/login-required';
-import { PUBLIC } from 'components/auth/user-types';
+import { PUBLIC } from 'components/auth/user-groups';
 
 class About extends Component {
   static async getInitialProps({ store }) {

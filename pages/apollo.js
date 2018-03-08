@@ -9,7 +9,7 @@ import withApollo from 'components/with-apollo';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/loading';
-import { PUBLIC } from 'components/auth/user-types';
+import { PUBLIC } from 'components/auth/user-groups';
 
 const ApolloPage = (props) => {
   const { data } = props;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { getComponentDisplayName } from '../../utils/hoc';
 import { whoAmI } from './actions';
-import { PUBLIC } from './user-types';
+import { PUBLIC } from './user-groups';
 
 /**
  * Higher order component for Next.js `pages` components.
@@ -48,17 +48,15 @@ export default (permissions = []) => ChildComponent => class LoginRequired exten
   }
 
   static userHasPermission(user) {
-    const userGroups = user.groups;
+    const userGroups = user.groups || [];
     let userHasPerm = true;
     // go here only if we have specific permission requirements
     if (permissions.length > 0) {
-      userHasPerm = false; // will let him pass if he has at least one permission
+      // will deny perm if user is missing at least one permission
       for (let i = 0, l = permissions.length; i < l; i++) {
-        for (let j = 0, k = userGroups.length; j < k; j++) {
-          if (userGroups[j] === permissions[i]) {
-            userHasPerm = true;
-            break;
-          }
+        if (userGroups.indexOf(permissions[i]) === -1) {
+          userHasPerm = false;
+          break;
         }
       }
     }

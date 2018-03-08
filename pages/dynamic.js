@@ -5,7 +5,7 @@ import initStore from 'init-store';
 import Layout from 'components/layout';
 import loginRequired from 'components/auth/login-required';
 import { fetchData } from 'pages/dynamic/actions';
-import { PUBLIC } from 'components/auth/user-types';
+import { PUBLIC } from 'components/auth/user-groups';
 
 class Dynamic extends Component {
   static async getInitialProps({ query, store }) {

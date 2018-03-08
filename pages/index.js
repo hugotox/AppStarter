@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import initStore from 'init-store';
 import Layout from 'components/layout';
 import loginRequired from 'components/auth/login-required';
-import { PUBLIC } from '../src/components/auth/user-types';
+import { PUBLIC } from '../src/components/auth/user-groups';
 
 class Index extends Component {
   render() {
