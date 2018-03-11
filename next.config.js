@@ -10,6 +10,7 @@ module.exports = withCSS({
     //   config.devtool = 'cheap-eval-source-map'
     // }
 
+    // include polyfills.js
     const originalEntry = config.entry;
     config.entry = async () => {
       const entries = await originalEntry();
@@ -21,6 +22,7 @@ module.exports = withCSS({
       return entries;
     };
 
+    // env variables
     const env = Object.keys(process.env).reduce((acc, curr) => {
       acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
       return acc
