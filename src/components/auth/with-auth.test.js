@@ -5,10 +5,10 @@ import thunk from 'redux-thunk';
 import Router from 'next/router';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios/index';
-import LoginRequired from './login-required';
+import withAuth from './with-auth';
 import { SET_USER } from './constants';
-import { API_BASE_URL } from '../../utils/base-url';
 
+const API_BASE_URL = `${process.env.API_BASE_URL}`;
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -26,24 +26,24 @@ class DummyComp extends Component {
   }
 }
 
-describe('LoginRequired test', () => {
+describe('withAuth test', () => {
   afterEach(() => {
     mock.reset();
   });
 
   it('Can wrap a react component', () => {
-    const DummyWrapped = LoginRequired()(DummyComp);
+    const DummyWrapped = withAuth()(DummyComp);
     const wrapper = mount(<DummyWrapped />);
     expect(wrapper.find('div.container').length).toBe(1);
   });
 
   it('Defines a `getInitialProps` static function', () => {
-    const DummyWrapped = LoginRequired()(DummyComp);
+    const DummyWrapped = withAuth()(DummyComp);
     expect(typeof DummyWrapped.getInitialProps).toBe('function');
   });
 
   it('Defines a `userHasPermission` static function (no permission required)', () => {
-    const DummyWrapped = LoginRequired()(DummyComp);
+    const DummyWrapped = withAuth()(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
     const hasPerm = DummyWrapped.userHasPermission({
       user: {
@@ -54,7 +54,7 @@ describe('LoginRequired test', () => {
   });
 
   it('Defines a `userHasPermission` static function (permission failed)', () => {
-    const DummyWrapped = LoginRequired([1])(DummyComp);
+    const DummyWrapped = withAuth([1])(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
     const hasPerm = DummyWrapped.userHasPermission({
       groups: [2]
@@ -63,7 +63,7 @@ describe('LoginRequired test', () => {
   });
 
   it('Defines a `userHasPermission` static function (permission success)', () => {
-    const DummyWrapped = LoginRequired([1])(DummyComp);
+    const DummyWrapped = withAuth([1])(DummyComp);
     expect(typeof DummyWrapped.userHasPermission).toBe('function');
     const hasPerm = DummyWrapped.userHasPermission({
       groups: [1]
@@ -72,7 +72,7 @@ describe('LoginRequired test', () => {
   });
 
   it('should define a `redirectToLogin` static function', () => {
-    const DummyWrapped = LoginRequired()(DummyComp);
+    const DummyWrapped = withAuth()(DummyComp);
     expect(typeof DummyWrapped.redirectToLogin).toBe('function');
 
     // server side
@@ -98,7 +98,7 @@ describe('LoginRequired test', () => {
   });
 
   it('should define a `redirectTo404` static function', () => {
-    const DummyWrapped = LoginRequired()(DummyComp);
+    const DummyWrapped = withAuth()(DummyComp);
     expect(typeof DummyWrapped.redirectTo404).toBe('function');
 
     // server side
@@ -151,7 +151,7 @@ describe('LoginRequired test', () => {
         }
       });
 
-    const DummyWrapped = LoginRequired(['STAFF'])(DummyComp);
+    const DummyWrapped = withAuth(['STAFF'])(DummyComp);
     expect(typeof DummyWrapped.getInitialProps).toBe('function');
 
     DummyWrapped.getInitialProps(context)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
 import initStore from 'init-store';
 import Layout from 'components/layout';
-import loginRequired from 'components/auth/login-required';
+import withAuth from 'components/auth/with-auth';
 import { fetchData } from 'pages/dynamic/actions';
 import { PUBLIC } from 'components/auth/user-groups';
 
@@ -36,5 +36,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRedux(initStore, mapStateToProps)(
-  loginRequired([PUBLIC])(Dynamic)
+  withAuth([PUBLIC])(Dynamic)
 );

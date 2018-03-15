@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import initStore from 'init-store';
 import Layout from 'components/layout';
 import { fetchData } from 'pages/index/actions';
-import loginRequired from 'components/auth/login-required';
+import withAuth from 'components/auth/with-auth';
 import { PUBLIC } from 'components/auth/user-groups';
 
 class About extends Component {
@@ -33,5 +33,5 @@ function mapStateToProps(state) {
 }
 
 export default withRedux(initStore, mapStateToProps)(
-  loginRequired([PUBLIC])(About)
+  withAuth([PUBLIC])(About)
 );

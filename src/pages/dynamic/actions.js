@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { API_BASE_URL } from 'utils/base-url';
 import * as constants from './constants';
+
+const API_BASE_URL = `${process.env.API_BASE_URL}`;
 
 export function fetchData(id) {
   return dispatch => axios.get(`${API_BASE_URL}/data/${id}`)

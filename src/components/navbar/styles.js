@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import theme from '../../utils/theme';
+import theme from '../../theme';
 
 const navbarHeight = '50px';
 

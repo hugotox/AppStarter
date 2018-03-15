@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Router from 'next/router';
-import { API_BASE_URL } from '../../utils/base-url';
 import { SET_USER, LOGOUT } from './constants';
+
+const API_BASE_URL = `${process.env.API_BASE_URL}`;
 
 export function login(payload, next) {
   return (dispatch) => axios.post(`${API_BASE_URL}/login`, payload)

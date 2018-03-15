@@ -8,7 +8,7 @@
 - [x] Async fetch data server & client side
 - [x] Login endpoint
 - [x] Logout endpoint
-- [x] LoginRequired higher order component
+- [x] withAuth higher order component
 - [x] Show logged in username in navbar
 - [x] User types
 - [ ] Remember me feature

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import withRedux from 'next-redux-wrapper';
 import initStore from 'init-store';
 import Layout from 'components/layout';
-import loginRequired from 'components/auth/login-required';
+import withAuth from 'components/auth/with-auth';
 import { PUBLIC } from '../src/components/auth/user-groups';
 
 class Index extends Component {
@@ -49,5 +49,5 @@ class Index extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired([PUBLIC])(Index)
+  withAuth([PUBLIC])(Index)
 );

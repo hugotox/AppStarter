@@ -5,9 +5,9 @@ import thunk from 'redux-thunk';
 import Router from 'next/router';
 
 import * as actions from './actions';
-import { API_BASE_URL } from '../../utils/base-url';
 import { LOGOUT, SET_USER } from './constants';
 
+const API_BASE_URL = `${process.env.API_BASE_URL}`;
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

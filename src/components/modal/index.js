@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import theme from '../../utils/theme';
+import theme from '../../theme';
 
 class Modal extends Component {
   static propTypes = {

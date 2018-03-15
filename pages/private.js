@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withRedux from 'next-redux-wrapper';
 import Layout from 'components/layout';
 import initStore from 'init-store';
-import loginRequired from 'components/auth/login-required';
+import withAuth from 'components/auth/with-auth';
 
 class Private extends Component {
   render() {
@@ -17,5 +17,5 @@ class Private extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired()(Private)
+  withAuth()(Private)
 );

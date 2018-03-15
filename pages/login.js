@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import initStore from 'init-store';
 import Layout from 'components/layout';
 import { login } from 'components/auth/actions';
-import loginRequired from 'components/auth/login-required';
+import withAuth from 'components/auth/with-auth';
 import { PUBLIC } from 'components/auth/user-groups';
 
 class Login extends Component {
@@ -85,5 +85,5 @@ class Login extends Component {
 }
 
 export default withRedux(initStore)(
-  loginRequired([PUBLIC])(Login)
+  withAuth([PUBLIC])(Login)
 );
