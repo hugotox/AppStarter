@@ -29,6 +29,6 @@ export default {
     // primaryTextColor: '#ffffff',
 
     link: '#1EAEDB',
-    linkHover: '#0FA0CE',
+    linkHover: '#0FA0CE'
   }
-};
+}

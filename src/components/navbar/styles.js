@@ -1,7 +1,7 @@
-import css from 'styled-jsx/css';
-import theme from '../../theme';
+import css from 'styled-jsx/css'
+import theme from '../../theme'
 
-const navbarHeight = '50px';
+const navbarHeight = '50px'
 
 // language=CSS
 export default css`
@@ -74,4 +74,4 @@ export default css`
       flex-direction: column;
     }
   }
-  `;
+  `

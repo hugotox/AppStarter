@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import Router, { withRouter } from 'next/router';
-import Loading from 'components/loading';
-import 'components/skeleton/skeleton.min.css';
-import globalStyles from 'global-styles';
-import NavBar from '../navbar';
-import Drawer from '../drawer';
-import Footer from '../footer';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Head from 'next/head'
+import Router, { withRouter } from 'next/router'
+import Loading from 'components/loading'
+import 'components/skeleton/skeleton.min.css'
+import globalStyles from 'global-styles'
+import NavBar from '../navbar'
+import Drawer from '../drawer'
+import Footer from '../footer'
 
 class Layout extends Component {
   static propTypes = {
@@ -28,29 +28,29 @@ class Layout extends Component {
     loading: false
   };
 
-  componentDidMount() {
-    this._mounted = true;
+  componentDidMount () {
+    this._mounted = true
     setTimeout(() => {
-      this.setState({ visible: true });
-    }, 1);
+      this.setState({ visible: true })
+    }, 1)
     // show loading only if new route takes more than 200 ms
     Router.onRouteChangeStart = (url) => {
       if (url.split('?')[0] !== this.props.router.asPath.split('?')[0]) {
         setTimeout(() => {
           if (this._mounted) {
-            this.setState({ loading: true });
+            this.setState({ loading: true })
           }
-        }, 200);
+        }, 200)
       }
-    };
+    }
   }
 
-  componentWillUnmount() {
-    this._mounted = false;
+  componentWillUnmount () {
+    this._mounted = false
   }
 
-  render() {
-    const { children, title, footer } = this.props;
+  render () {
+    const { children, title, footer } = this.props
     return (
       <div>
         <Head>
@@ -61,8 +61,7 @@ class Layout extends Component {
 
         <div className={'animated ' + (this.state.visible ? 'visible' : '')}>
           {this.state.loading ? <Loading />
-            :
-            children}
+            : children}
         </div>
 
         <Footer>{footer}</Footer>
@@ -87,8 +86,8 @@ class Layout extends Component {
 
         <style jsx global>{globalStyles}</style>
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(Layout);
+export default withRouter(Layout)

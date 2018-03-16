@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
 
 class Modal extends Component {
   static propTypes = {
@@ -14,26 +14,26 @@ class Modal extends Component {
     children: null
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (!this.props.visible && nextProps.visible) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100vh';
+      document.body.style.overflow = 'hidden'
+      document.body.style.height = '100vh'
     } else {
-      document.body.style.overflow = '';
-      document.body.style.height = '';
+      document.body.style.overflow = ''
+      document.body.style.height = ''
     }
   }
 
   contentClick = e => {
-    e.stopPropagation();
+    e.stopPropagation()
   };
 
-  render() {
-    const { visible, children, onClose } = this.props;
+  render () {
+    const { visible, children, onClose } = this.props
     return (
       <div className={visible ? 'modal-wrapper visible' : 'modal-wrapper'} onClick={onClose}>
-        <div className="modal" onClick={this.contentClick}>
-          <div className="close" onClick={onClose}>
+        <div className='modal' onClick={this.contentClick}>
+          <div className='close' onClick={onClose}>
             ✕
           </div>
           {children}
@@ -77,8 +77,8 @@ class Modal extends Component {
         }
         </style>
       </div>
-    );
+    )
   }
 }
 
-export default Modal;
+export default Modal

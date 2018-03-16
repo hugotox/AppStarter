@@ -1,21 +1,21 @@
-import { SET_USER, LOGOUT } from './constants';
+import { SET_USER, LOGOUT } from './constants'
 
 const initialState = {
   user: null
-};
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_USER: {
-      return { ...state, user: action.user };
+      return { ...state, user: action.user }
     }
 
     case LOGOUT: {
-      return initialState;
+      return initialState
     }
 
     default: {
-      return state;
+      return state
     }
   }
 }

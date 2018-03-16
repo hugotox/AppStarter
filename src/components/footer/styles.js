@@ -1,4 +1,4 @@
-import css from 'styled-jsx/css';
+import css from 'styled-jsx/css'
 
 /* language=CSS */
 export default css`
@@ -8,4 +8,4 @@ export default css`
     font-size: 0.9em;
     padding: 20px 0;
   }
-`;
+`

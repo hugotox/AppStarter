@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import Router from 'next/router';
-import { getComponentDisplayName } from './utils';
-import { whoAmI } from './actions';
-import { PUBLIC } from './user-groups';
+import React, { Component } from 'react'
+import Router from 'next/router'
+import { getComponentDisplayName } from './utils'
+import { whoAmI } from './actions'
+import { PUBLIC } from './user-groups'
 
 /**
  * Higher order component for Next.js `pages` components.
@@ -39,81 +39,80 @@ export default (permissions = []) => ChildComponent => class withAuth extends Co
     ChildComponent
   )})`;
 
-  static redirectToLogin(context) {
-    const { isServer, req, res } = context;
+  static redirectToLogin (context) {
+    const { isServer, req, res } = context
     if (isServer) {
-      res.writeHead(302, { Location: `/login?next=${req.originalUrl}` });
-      res.end();
+      res.writeHead(302, { Location: `/login?next=${req.originalUrl}` })
+      res.end()
     } else {
-      Router.push(`/login?next=${context.asPath}`);
+      Router.push(`/login?next=${context.asPath}`)
     }
   }
 
-  static redirectTo404(context) {
-    const { isServer, res } = context;
+  static redirectTo404 (context) {
+    const { isServer, res } = context
     if (isServer) {
-      res.writeHead(302, { Location: '/notfound' });
-      res.end();
+      res.writeHead(302, { Location: '/notfound' })
+      res.end()
     } else {
-      Router.push('/notfound');
+      Router.push('/notfound')
     }
   }
 
-  static userHasPermission(user) {
-    const userGroups = user.groups || [];
-    let userHasPerm = true;
+  static userHasPermission (user) {
+    const userGroups = user.groups || []
+    let userHasPerm = true
     // go here only if we have specific permission requirements
     if (permissions.length > 0) {
       // will deny perm if user is missing at least one permission
       for (let i = 0, l = permissions.length; i < l; i++) {
         if (userGroups.indexOf(permissions[i]) === -1) {
-          userHasPerm = false;
-          break;
+          userHasPerm = false
+          break
         }
       }
     }
-    return userHasPerm;
+    return userHasPerm
   }
 
-  static async getInitialProps(context) {
+  static async getInitialProps (context) {
     // public page passes the permission `PUBLIC` to this function
-    const isPublicPage = permissions.indexOf(PUBLIC) !== -1;
-    const { isServer, store, req } = context;
-    let user = null;
+    const isPublicPage = permissions.indexOf(PUBLIC) !== -1
+    const { isServer, store, req } = context
+    let user = null
 
     if (isServer) {
       // happens on page first load
-      const { cookie } = req.headers;
-      user = await store.dispatch(whoAmI(cookie));
-
+      const { cookie } = req.headers
+      user = await store.dispatch(whoAmI(cookie))
     } else {
       // happens on client side navigation
-      user = store.getState().auth.user;
+      user = store.getState().auth.user
     }
 
     if (user) {
       // mean user is logged in
       if (!isPublicPage) {
         if (!this.userHasPermission(user)) {
-          this.redirectTo404(context);
+          this.redirectTo404(context)
         }
       }
     } else {
       // anonymous user
       if (!isPublicPage) {
-        this.redirectToLogin(context);
+        this.redirectToLogin(context)
       }
     }
 
     if (typeof ChildComponent.getInitialProps === 'function') {
-      const initProps = await ChildComponent.getInitialProps(context);
-      return initProps;
+      const initProps = await ChildComponent.getInitialProps(context)
+      return initProps
     }
 
-    return {};
+    return {}
   }
 
-  render() {
-    return <ChildComponent {...this.props} />;
+  render () {
+    return <ChildComponent {...this.props} />
   }
-};
+}

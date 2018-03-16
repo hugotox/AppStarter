@@ -1,6 +1,6 @@
-require('dotenv').config();
-const webpack = require('webpack');
-const withCSS = require('@zeit/next-css');
+require('dotenv').config()
+const webpack = require('webpack')
+const withCSS = require('@zeit/next-css')
 
 module.exports = withCSS({
   cssModules: false,
@@ -11,25 +11,25 @@ module.exports = withCSS({
     // }
 
     // include polyfills.js
-    const originalEntry = config.entry;
+    const originalEntry = config.entry
     config.entry = async () => {
-      const entries = await originalEntry();
+      const entries = await originalEntry()
 
       if (entries['main.js']) {
-        entries['main.js'].unshift('./polyfills.js');
+        entries['main.js'].unshift('./polyfills.js')
       }
 
-      return entries;
-    };
+      return entries
+    }
 
     // env variables
     const env = Object.keys(process.env).reduce((acc, curr) => {
-      acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
+      acc[`process.env.${curr}`] = JSON.stringify(process.env[curr])
       return acc
     }, {})
 
     config.plugins.push(new webpack.DefinePlugin(env))
 
-    return config;
+    return config
   }
-});
+})

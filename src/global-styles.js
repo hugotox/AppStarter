@@ -1,5 +1,5 @@
-import css from 'styled-jsx/css';
-import theme from 'theme';
+import css from 'styled-jsx/css'
+import theme from 'theme'
 
 // language=CSS
 export default css`
@@ -91,4 +91,4 @@ export default css`
     border-color: ${theme.colors.primaryHover};
   }
   
-`;
+`
