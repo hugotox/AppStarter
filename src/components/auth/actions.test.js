@@ -49,13 +49,19 @@ describe('Auth actions test', () => {
   it('login: should call the whoami API and dispatch SET_USER action', () => {
     mock.onGet(`${API_BASE_URL}/whoami`)
       .reply(200, {
-        user: 'I am the user'
+        user: {
+          id: 1,
+          name: 'I am the user'
+        }
       })
 
     const store = mockStore({})
     const expectedActions = [{
       type: SET_USER,
-      user: 'I am the user'
+      user: {
+        id: 1,
+        name: 'I am the user'
+      }
     }]
 
     const payload = {

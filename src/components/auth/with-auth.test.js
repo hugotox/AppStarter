@@ -38,11 +38,6 @@ describe('withAuth test', () => {
     expect(wrapper.find('div.container').length).toBe(1)
   })
 
-  it('Defines a `getInitialProps` static function', () => {
-    const DummyWrapped = withAuth()(DummyComp)
-    expect(typeof DummyWrapped.getInitialProps).toBe('function')
-  })
-
   it('Defines a `userHasPermission` static function (no permission required)', () => {
     const DummyWrapped = withAuth()(DummyComp)
     expect(typeof DummyWrapped.userHasPermission).toBe('function')
@@ -124,30 +119,37 @@ describe('withAuth test', () => {
     expect(Router.router.push).toHaveBeenCalledWith('/notfound')
   })
 
-  it('should define a getInitialProps static function: require permissions', () => {
+  it('should define a getInitialProps static function', () => {
     const store = mockStore({
       auth: {
-        token: null
       }
     })
     const context = {
       isServer: true,
       req: {
-        cookies: {
-          'x-access-token': 'the-token'
+        headers: {
+          cookies: {
+            'x-access-token': 'the-token'
+          }
         }
+      },
+      res: {
+        writeHead: function () {},
+        end: function () {}
       },
       store
     }
     const expectedActions = [{
       type: SET_USER,
       user: {
+        id: 1,
         groups: ['STAFF']
       }
     }]
-    mock.onPost(`${API_BASE_URL}/verify-token`)
+    mock.onGet(`${API_BASE_URL}/whoami`)
       .reply(200, {
         user: {
+          id: 1,
           groups: ['STAFF']
         }
       })
