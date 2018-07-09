@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'init-store'
-import Layout from 'components/layout'
-import Modal from 'components/modal'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Layout from 'components/layout';
+import Modal from 'components/modal';
 
 class UIExamples extends Component {
   state = {
@@ -10,30 +9,32 @@ class UIExamples extends Component {
   };
 
   toggleModal = () => {
-    this.setState({ modalVisible: !this.state.modalVisible })
+    this.setState({ modalVisible: !this.state.modalVisible });
   };
 
-  render () {
+  render() {
     return (
       <Layout>
-        <div className='container'>
+        <div className="container">
           <h3>UI Examples</h3>
           <div>
             <button onClick={this.toggleModal}>Open modal</button>
             &nbsp;
-            <button className='button-primary' onClick={this.toggleModal}>Open modal</button>
+            <button className="button-primary" onClick={this.toggleModal}>
+              Open modal
+            </button>
           </div>
-          <div className='box'>I&apos;m in a box</div>
+          <div className="box">I&apos;m in a box</div>
           <div>
-            FA Test: <i className='fa fa-lock' />
+            FA Test: <i className="fa fa-lock" />
           </div>
         </div>
         <Modal visible={this.state.modalVisible} onClose={this.toggleModal}>
           hello
         </Modal>
       </Layout>
-    )
+    );
   }
 }
 
-export default withRedux(initStore)(UIExamples)
+export default connect()(UIExamples);

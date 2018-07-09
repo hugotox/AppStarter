@@ -1,62 +1,98 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'init-store'
-import Layout from 'components/layout'
-import { login } from 'components/auth/actions'
-import withAuth from 'components/auth/with-auth'
-import { PUBLIC } from 'components/auth/user-groups'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Router, { withRouter } from 'next/router';
+import Head from 'next/head';
+import { login } from 'components/auth/actions';
+import Layout from 'components/layout';
+import { whoAmI } from '../src/components/auth/actions';
 
 class Login extends Component {
+  static isPublic = true;
+
   static propTypes = {
-    url: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
-  constructor (props) {
-    super(props)
-    const { url } = props
-    const { query } = url
-    const next = query.next || '/'
+  static async getInitialProps(context) {
+    // call whoami in case the user navigates to /login when already logged in
+    const { reduxStore, req } = context;
+    const isServer = typeof window === 'undefined';
+    if (isServer) {
+      // happens on page first load
+      const { cookie } = req.headers;
+      if (cookie) {
+        await reduxStore.dispatch(whoAmI(cookie));
+      }
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    const { router } = props;
+    const { query } = router;
+    const next = query.next || '/';
     this.state = {
       username: '',
       password: '',
       rememberMe: false,
       next
+    };
+  }
+
+  componentWillMount() {
+    const isServer = typeof window === 'undefined';
+    const { user } = this.props;
+    if (user && !isServer) {
+      Router.push('/');
     }
   }
 
-  updateState = (e) => {
-    this.setState({ [e.target.id]: e.target.value })
+  updateState = e => {
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   toggleRememberMe = () => {
-    this.setState({ rememberMe: !this.state.rememberMe })
+    this.setState({ rememberMe: !this.state.rememberMe });
   };
 
-  submit = (e) => {
-    e.preventDefault()
-    this.props.dispatch(login({ ...this.state }, this.state.next))
+  submit = e => {
+    e.preventDefault();
+    this.props.dispatch(login({ ...this.state }, this.state.next));
   };
 
-  render () {
+  render() {
     return (
       <Layout>
-        <div className='container'>
+        <Head>
+          <title>Login</title>
+        </Head>
+        <div className="container">
           <form onSubmit={this.submit}>
             <div>
-              <label htmlFor='username'>Username</label>
-              <input id='username' type='text' value={this.state.username} onChange={this.updateState} />
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
+                type="text"
+                value={this.state.username}
+                onChange={this.updateState}
+              />
             </div>
             <div>
-              <label htmlFor='password'>Password</label>
-              <input id='password' type='password' value={this.state.password} onChange={this.updateState} />
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.updateState}
+              />
             </div>
             <div>
               <label>
                 <input
-                  type='checkbox'
-                  className='checkbox'
+                  type="checkbox"
+                  className="checkbox"
                   checked={this.state.rememberMe}
                   onChange={this.toggleRememberMe}
                 />
@@ -80,10 +116,12 @@ class Login extends Component {
           `}
         </style>
       </Layout>
-    )
+    );
   }
 }
 
-export default withRedux(initStore)(
-  withAuth([PUBLIC])(Login)
-)
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+
+export default withRouter(connect(mapStateToProps)(Login));

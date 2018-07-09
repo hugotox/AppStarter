@@ -1,19 +1,16 @@
-import React, { Component } from 'react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'init-store'
-import Layout from 'components/layout'
+import React, { Component } from 'react';
+import Layout from 'components/layout';
 
 class NotFound extends Component {
-  render () {
+  render() {
     return (
-      <Layout title='About'>
-        <div className='container'>
+      <Layout title="About">
+        <div className="container">
           <h1>Nothing to see here.</h1>
         </div>
-      </Layout>)
+      </Layout>
+    );
   }
 }
 
-export default withRedux(initStore)(
-  NotFound
-)
+export default NotFound;

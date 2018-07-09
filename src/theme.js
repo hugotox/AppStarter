@@ -1,6 +1,7 @@
 export default {
   font: {
-    family: '"Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    family:
+      '"Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
     size: '1.5em',
     color: '#222'
   },
@@ -31,4 +32,4 @@ export default {
     link: '#1EAEDB',
     linkHover: '#0FA0CE'
   }
-}
+};

@@ -1,27 +1,38 @@
-import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
-import flush from 'styled-jsx/server'
+import React from 'react';
+import Document, { Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
-  static getInitialProps ({ renderPage }) {
-    const { html, head, errorHtml, chunks } = renderPage()
-    const styles = flush()
-    return { html, head, errorHtml, chunks, styles }
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
   }
 
-  render () {
+  render() {
     return (
-      <html lang='en'>
+      <html lang="en">
         <Head>
-          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-          <script src='https://use.fontawesome.com/d599b86078.js' />
-          <link rel='stylesheet' href='/_next/static/style.css' />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+          <link
+            href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+            rel="stylesheet"
+            type="text/css"
+          />
+          <script src="https://use.fontawesome.com/d599b86078.js" />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/_next/static/style.css"
+          />
+          <link rel="icon" type="image/png" href="/static/favicon.ico" />
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </html>
-    )
+    );
   }
 }
